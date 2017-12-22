@@ -9,11 +9,13 @@ RSpec.describe Account, type: :model do
   it { expect(subject).to enumerize(:type).in(:asset, :liability, :equity, :income, :expense) }
 
   it do
-    expect(subject).to belong_to(:parent).class_name("Account").with_foreign_key("parent_id").inverse_of("children")
+    expect(subject).to belong_to(:parent)
+      .class_name("Account").with_foreign_key("parent_id").inverse_of("children")
   end
 
   it do
-    expect(subject).to have_many(:children).class_name("Account").inverse_of("parent").dependent("destroy")
+    expect(subject).to have_many(:children)
+      .class_name("Account").with_foreign_key("parent_id").inverse_of("parent").dependent("destroy")
   end
 
   it "should not allow an account be parent of itself" do

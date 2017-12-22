@@ -3,8 +3,10 @@
 class Account < ApplicationRecord
   extend Enumerize
 
+  self.inheritance_column = nil
+
   belongs_to :parent, class_name: "Account", foreign_key: "parent_id", optional: true, inverse_of: "children"
-  has_many :children, class_name: "Account", inverse_of: "parent", dependent: :destroy
+  has_many :children, class_name: "Account", foreign_key: "parent_id", inverse_of: "parent", dependent: :destroy
 
   enumerize :type, in: %i[asset liability equity income expense]
 
@@ -15,6 +17,6 @@ class Account < ApplicationRecord
   private
 
   def self_reference
-    errors.add(:parent_id, :self_reference, {}) if id == parent_id && parent.present?
+    errors.add(:parent_id, :self_reference, {}) if parent.present? && id == parent.id
   end
 end
