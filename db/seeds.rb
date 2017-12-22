@@ -1,8 +1,19 @@
 # frozen_string_literal: true
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+
+ENV["RAILS_ENV"] ||= "dev"
+
+logger = ActiveSupport::Logger.new(STDOUT)
+
+Account.destroy_all
+
+assets = Account.create(name: "Assets", type: :asset)
+Account.create(name: "Bank", type: :asset, parent: assets)
+
+Account.create(name: "Liabilities", type: :liability)
+Account.create(name: "Equity", type: :equity)
+Account.create(name: "Incomes", type: :income)
+Account.create(name: "Expenses", type: :expense)
+
+Account.all.each do |acc|
+  logger.info(acc.as_json)
+end
