@@ -3,5 +3,6 @@
 require "rails_helper"
 
 RSpec.describe Deal, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { expect(subject).to have_many(:splits).dependent(:destroy) }
+  it { expect(subject).to have_many(:accounts).through(:splits).inverse_of(:deal) }
 end

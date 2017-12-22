@@ -10,16 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171220230610) do
+ActiveRecord::Schema.define(version: 20171222131403) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name"
-    t.string "description"
+    t.string "description", default: ""
     t.string "type"
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_accounts_on_parent_id"
+  end
+
+  create_table "deals", force: :cascade do |t|
+    t.date "date"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "splits", force: :cascade do |t|
+    t.integer "account_id"
+    t.integer "deal_id"
+    t.string "position"
+    t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_splits_on_account_id"
+    t.index ["deal_id"], name: "index_splits_on_deal_id"
   end
 
 end
