@@ -20,4 +20,18 @@ RSpec.describe Deal, type: :model do
     expect(subject).to be_invalid
     expect(subject.errors.details[:splits]).to match_array([{ error: :imbalance, balance: -90 }])
   end
+
+  it "should use custom json serializer" do
+    expect(subject.as_json).to eq(
+      "id" => nil,
+      "date" => Date.parse("2018-01-01"),
+      "description" => "transaction desc",
+      "created_at" => nil,
+      "updated_at" => nil,
+      "splits" => [
+        { "id" => nil, "account_id" => nil, "position" => "debit", "value" => BigDecimal("9.99") },
+        { "id" => nil, "account_id" => nil, "position" => "credit", "value" => BigDecimal("9.99") }
+      ]
+    )
+  end
 end

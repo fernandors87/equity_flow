@@ -14,6 +14,6 @@ class Split < ApplicationRecord
   validates :value, presence: true, numericality: { greater_than: 0 }
 
   def signed_value
-    position.credit? ? value * -1 : value
+    position.credit? ? -value : value
   end
 end

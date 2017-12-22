@@ -7,6 +7,10 @@ class Deal < ApplicationRecord
   validates :splits, length: { minimum: 2 }
   validate :balance
 
+  def as_json(options = {})
+    super(options).merge("splits" => splits.as_json(except: :deal_id))
+  end
+
   private
 
   def balance
