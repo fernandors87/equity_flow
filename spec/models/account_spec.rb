@@ -15,7 +15,7 @@ RSpec.describe Account, type: :model do
   end
 
   it { expect(subject).to have_many(:splits).dependent(:destroy) }
-  it { expect(subject).to have_many(:deals).through(:splits).inverse_of(:account).dependent(:destroy) }
+  it { expect(subject).to have_many(:deals).through(:splits).inverse_of(:accounts).dependent(:destroy) }
 
   it do
     expect(subject).to have_many(:children)

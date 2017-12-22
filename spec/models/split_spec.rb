@@ -11,5 +11,5 @@ RSpec.describe Split, type: :model do
   it { expect(subject).to validate_numericality_of(:value).is_greater_than(0) }
 
   it { expect(subject).to belong_to(:account) }
-  it { expect(subject).to belong_to(:deal) }
+  it { expect(subject).to belong_to(:deal).dependent(:destroy) }
 end

@@ -3,10 +3,10 @@
 class CreateSplits < ActiveRecord::Migration[5.1]
   def change
     create_table :splits do |t|
-      t.belongs_to :account, foreign_key: true
-      t.belongs_to :deal, foreign_key: true
+      t.belongs_to :account
+      t.belongs_to :deal
       t.string :position
-      t.decimal :value
+      t.decimal :value, precision: 10, scale: 12
       t.timestamps
     end
   end

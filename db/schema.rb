@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20171222131403) do
     t.integer "account_id"
     t.integer "deal_id"
     t.string "position"
-    t.decimal "value"
+    t.decimal "value", precision: 10, scale: 12
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_splits_on_account_id"

@@ -3,11 +3,14 @@ AllCops:
     - bin/**/*
     - db/schema.rb
 
+Layout/IndentArray:
+  EnforcedStyle: consistent
+
 Metrics/LineLength:
   Max: 120
 
 Rails:
-  Enabled: true  
+  Enabled: true
 
 Style/Documentation:
   Enabled: false
