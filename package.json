@@ -1,15 +1,44 @@
 {
   "name": "equity_flow",
   "private": true,
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint app/javascript",
+    "test": "./node_modules/.bin/jest"
+  },
   "dependencies": {
     "@rails/webpacker": "^3.2.0",
+    "axios": "^0.17.1",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "coffeescript": "1.12.7",
+    "date-fns": "^1.29.0",
+    "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
+    "eslint": "^4.13.1",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.0.4",
     "webpack-dev-server": "^2.9.7"
+  },
+  "moduleDirectories": [
+    "node_modules",
+    "app/javascript"
+  ],
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ]
   }
 }
