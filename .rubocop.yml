@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - bin/**/*
     - db/schema.rb
+    - node_modules/**/*
 
 Layout/IndentArray:
   EnforcedStyle: consistent

@@ -37,12 +37,12 @@ gem "jbuilder", "~> 2.5"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "capybara", "~> 2.16.1"
   gem "database_cleaner", "~> 1.6.2"
   gem "factory_bot_rails", "~> 4.8.2"
   gem "rspec-rails", "~> 3.7.2"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 3.1.2"
-  gem "capybara", "~> 2.16.1"
 end
 
 group :development do

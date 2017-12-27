@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TransactionSummary render table 1`] = `
+exports[`TransactionSummary render a table with monthly account values 1`] = `
 <div>
   <table>
     <thead>

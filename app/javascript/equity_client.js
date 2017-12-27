@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export default class EquityClient {
-
   constructor (basePath) {
     this.basePath = basePath
   }
@@ -12,7 +11,6 @@ export default class EquityClient {
 }
 
 class Deals {
-
   constructor (basePath) {
     this.basePath = basePath
   }

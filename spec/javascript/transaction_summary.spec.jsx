@@ -4,43 +4,41 @@ import renderer from 'react-test-renderer'
 import { Map } from 'immutable'
 
 describe('TransactionSummary', () => {
-
   const transactions = [
     {
       id: 1,
-      date: "2017-01-10",
+      date: '2017-01-10',
       splits: [
-        { id: 1, account_id: 1, position: "debit", value: 1000.0 },
-        { id: 2, account_id: 2, position: "credit", value: 1000.0 }
+        { id: 1, account_id: 1, position: 'debit', value: 1000.0 },
+        { id: 2, account_id: 2, position: 'credit', value: 1000.0 }
       ]
     },
     {
       id: 2,
-      date: "2017-02-15",
+      date: '2017-02-15',
       splits: [
-        { id: 3, account_id: 1, position: "debit", value: 999.99 },
-        { id: 4, account_id: 2, position: "credit", value: 99.99 },
-        { id: 5, account_id: 3, position: "credit", value: 900.0 }
+        { id: 3, account_id: 1, position: 'debit', value: 999.99 },
+        { id: 4, account_id: 2, position: 'credit', value: 99.99 },
+        { id: 5, account_id: 3, position: 'credit', value: 900.0 }
       ]
     }
   ]
 
   const accounts = [
-    { id: 1, name: "account 1" },
-    { id: 2, name: "account 2" },
-    { id: 3, name: "account 3" }
+    { id: 1, name: 'account 1' },
+    { id: 2, name: 'account 2' },
+    { id: 3, name: 'account 3' }
   ]
 
   const component = renderer.create(
     <TransactionSummary
       transactions={transactions}
-      startDate={new Date("2017-07-10")}
-      endDate={new Date("2017-12-10")} />)
+      startDate={new Date('2017-07-10')}
+      endDate={new Date('2017-12-10')} />)
 
   const instance = component.getInstance()
 
   describe('months', () => {
-
     it('generate an array with months covering two dates', () => {
       const actual = instance.months(new Date('2017-01-30'), new Date('2017-04-10'))
       const expected = ['2017-01-01', '2017-02-01', '2017-03-01', '2017-04-01'].map(s => new Date(s))
@@ -54,7 +52,6 @@ describe('TransactionSummary', () => {
   })
 
   describe('categories', () => {
-
     it('generate a map with account/month pairs', () => {
       const months = ['2017-01-01', '2017-02-01'].map(s => new Date(s))
       const actual = instance.categories(accounts, months)
@@ -68,7 +65,6 @@ describe('TransactionSummary', () => {
   })
 
   describe('cells', () => {
-
     it('add transaction values to given categories', () => {
       const months = ['2017-01-01', '2017-02-01', '2017-03-01'].map(s => new Date(s))
       const categories = instance.categories(accounts, months)
@@ -82,19 +78,16 @@ describe('TransactionSummary', () => {
     })
   })
 
-  describe('render', () => {
 
-    it('table', () => {
+  it('render a table with monthly account values', () => {
+    const component = renderer.create(
+      <TransactionSummary
+        transactions={transactions}
+        accounts={accounts}
+        startDate={new Date('2017-01-10')}
+        endDate={new Date('2017-03-20')} />)
 
-      const component = renderer.create(
-        <TransactionSummary
-          transactions={transactions}
-          accounts={accounts}
-          startDate={new Date("2017-01-10")}
-          endDate={new Date("2017-03-20")} />)
-
-      let tree = component.toJSON();
-      expect(tree).toMatchSnapshot();
-    })
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
   })
 })
