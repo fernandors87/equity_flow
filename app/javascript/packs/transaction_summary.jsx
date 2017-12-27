@@ -75,7 +75,7 @@ export default class TransactionSummary extends React.Component {
 
     return (
       <div>
-        <table>
+        <table class="table">
           <thead>
             <tr>
               <th>Account</th>

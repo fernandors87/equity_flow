@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import TransactionSummary from './transaction_summary'
 import API from './../src/api'
+import bootstrap from '../src/application.scss'
 
 class Application extends React.Component {
 

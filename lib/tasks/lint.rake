@@ -9,7 +9,13 @@ namespace :lint do
     sh "rubocop"
   end
 
-  task all: :environment do
-    %w[ruby js].each { |t| Rake::Task["lint:#{t}"].invoke }
+  namespace :ruby do
+    task fix: :environment do
+      sh "rubocop -a"
+    end
   end
+end
+
+task lint: :environment do
+  %w[ruby js].each { |t| Rake::Task["lint:#{t}"].invoke }
 end

@@ -2,7 +2,9 @@
 
 exports[`TransactionSummary render a table with monthly account values 1`] = `
 <div>
-  <table>
+  <table
+    class="table"
+  >
     <thead>
       <tr>
         <th>
