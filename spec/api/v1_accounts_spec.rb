@@ -18,6 +18,7 @@ RSpec.describe "/api/v1/accounts", type: :request do
           "name" => "account_1",
           "description" => "account description",
           "type" => "income",
+          "level" => 0,
           "parent_id" => nil
         }
       ])

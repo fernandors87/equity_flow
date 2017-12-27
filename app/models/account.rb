@@ -5,6 +5,8 @@ class Account < ApplicationRecord
 
   self.inheritance_column = nil
 
+  before_save :calculate_level
+
   belongs_to :parent, class_name: "Account", foreign_key: "parent_id", optional: true, inverse_of: "children"
   has_many :children, class_name: "Account", foreign_key: "parent_id", inverse_of: "parent", dependent: :destroy
   has_many :splits, dependent: :destroy
@@ -14,6 +16,7 @@ class Account < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { scope: :parent_id }
   validates :type, presence: true
+  validates :level, presence: true, numericality: { greater_than_or_equal_to: 0 }, on: :save
   validate :self_reference
 
   # TODO: test
@@ -22,6 +25,11 @@ class Account < ApplicationRecord
   end
 
   private
+
+  def calculate_level
+    self.level = parent.nil? ? 0 : parent.level + 1
+    children.each(&:save)
+  end
 
   def self_reference
     errors.add(:parent_id, :self_reference, {}) if parent.present? && id == parent.id

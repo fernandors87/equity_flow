@@ -6,6 +6,7 @@ class Split < ApplicationRecord
   belongs_to :account
   belongs_to :deal, dependent: :destroy
 
+  # TODO: remove position concept
   enumerize :position, in: %i[debit credit]
 
   validates :account, presence: true
