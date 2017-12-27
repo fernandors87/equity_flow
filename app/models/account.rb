@@ -16,6 +16,11 @@ class Account < ApplicationRecord
   validates :type, presence: true
   validate :self_reference
 
+  #TODO: test
+  def full_name
+    parent ? [parent.full_name, name].join(":") : name
+  end
+
   private
 
   def self_reference

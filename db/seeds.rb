@@ -1,26 +1,53 @@
 # frozen_string_literal: true
 
+require "gnucash"
+
 ENV["RAILS_ENV"] ||= "dev"
 
 logger = ActiveSupport::Logger.new(STDOUT)
 ActiveRecord::Base.logger = logger
 
+book = Gnucash.open("/home/fernando/Dropbox/cash/cash.gnucash")
+
 Account.destroy_all
+accounts = book.accounts.sort_by(&:full_name).each do |account|
+  next if account.type == "ROOT"
+  type = case account.type
+  when "BANK"
+    "ASSET"
+  when "CREDIT"
+    "LIABILITY"
+  else
+    account.type
+  end
 
-assets = Account.create(name: "Assets", type: :asset)
-bank = Account.create(name: "Bank", type: :asset, parent: assets)
+  parent_name = account.full_name.split(":")[0..-2].join(":")
+  parent = Account.all.find { |a| a.full_name == parent_name }
+  Account.create!(name: account.name, type: type.downcase, parent: parent)
+end
 
-Account.create(name: "Liabilities", type: :liability)
-Account.create(name: "Equity", type: :equity)
+book.transactions.each do |transaction|
+  deal = Deal.new(date: transaction.date, description: transaction.description)
+  p book.instance_variable_get("@node")
+end
 
-incomes = Account.create(name: "Incomes", type: :income)
-salary = Account.create(name: "Salary", type: :income, parent: incomes)
-
-Account.create(name: "Expenses", type: :expense)
-
-salary_jan = Deal.new(date: "2018-01-10")
-salary_jan.splits.build([
-  { account: bank, position: :debit, value: 1000 },
-  { account: salary, position: :credit, value: 1000 }
-])
-salary_jan.save
+node = Nokogiri.XML(File.read("/home/fernando/Dropbox/cash/cash.gnucash"))
+node.xpath('/gnc-v2/gnc:book').xpath('gnc:transaction').each do |tx_node|
+  date = Date.parse(tx_node.xpath('trn:date-posted/ts:date').text.split(' ').first)
+  description = tx_node.xpath('trn:description').text
+  deal = Deal.new(date: date, description: description)
+  tx_node.xpath('trn:splits/trn:split').each do |split_node|
+    value = Rational(split_node.xpath('split:quantity').text)
+    account_id = split_node.xpath('split:account').text
+    account = book.find_account_by_id(account_id)
+    local_account = Account.all.find { |a| a.full_name == account.full_name }
+    position = value < 0 ? "credit": "debit"
+    deal.splits << Split.new(account: local_account, position: position, value: value.abs)
+  end
+  begin
+    deal.save!
+  rescue
+    p deal
+    p deal.splits
+  end
+end

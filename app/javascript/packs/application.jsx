@@ -19,20 +19,27 @@ class Application extends React.Component {
 
   componentDidMount() {
     const api = new API()
+
     api.transactions.list().then(tx => {
       this.setState({transactions: tx})
+    })
+
+    api.accounts.list().then(acc => {
+      this.setState({accounts: acc})
     })
   }
 
   render () {
-    return <div>
-      <TransactionSummary
-        transactions={this.state.transactions}
-        accounts={this.state.accounts}
-        startDate={new Date("2017-10-25")}
-        endDate={new Date("2018-02-25")}
-        />
-    </div>
+    return (
+      <div>
+        <TransactionSummary
+          transactions={this.state.transactions}
+          accounts={this.state.accounts}
+          startDate={new Date("2017-10-25")}
+          endDate={new Date("2018-02-25")}
+          />
+      </div>
+    )
   }
 }
 

@@ -1,9 +1,7 @@
 import axios from 'axios'
-import * as _ from 'lodash'
 
 export default class Transactions {
-
-  list (callback) {
+  list () {
     return axios('/api/v1/deals').then(response => {
       return response.data.map(tx => {
         tx.splits = tx.splits.map(s => {
