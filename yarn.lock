@@ -3037,6 +3037,10 @@ ignore@^3.3.3, ignore@^3.3.6:
   version "3.3.7"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-3.3.7.tgz#612289bfb3c220e186a58118618d5be8c1bab021"
 
+immutable@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
+
 import-local@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/import-local/-/import-local-0.1.1.tgz#b1179572aacdc11c6a91009fb430dbcab5f668a8"
@@ -4154,6 +4158,10 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0, mkd
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+moment@^2.20.1:
+  version "2.20.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.20.1.tgz#d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -5392,6 +5400,14 @@ react-dom@^16.2.0:
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+
+react-test-renderer@^16.2.0:
+  version "16.2.0"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.2.0.tgz#bddf259a6b8fcd8555f012afc8eacc238872a211"
+  dependencies:
+    fbjs "^0.8.16"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 

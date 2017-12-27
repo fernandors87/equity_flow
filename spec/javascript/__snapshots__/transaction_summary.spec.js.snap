@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransactionSummary render table 1`] = `
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Account
+        </th>
+        <th>
+          2017-01
+        </th>
+        <th>
+          2017-02
+        </th>
+        <th>
+          2017-03
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          account 1
+        </td>
+        <td>
+          1000
+        </td>
+        <td>
+          999.99
+        </td>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <td>
+          account 2
+        </td>
+        <td>
+          -1000
+        </td>
+        <td>
+          -99.99
+        </td>
+        <td>
+          0
+        </td>
+      </tr>
+      <tr>
+        <td>
+          account 3
+        </td>
+        <td>
+          0
+        </td>
+        <td>
+          -900
+        </td>
+        <td>
+          0
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

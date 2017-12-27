@@ -1,93 +1,97 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import moment from 'moment'
 import * as _ from 'lodash'
-import * as _date from 'date-fns'
+import { Map } from 'immutable'
 
 export default class TransactionSummary extends React.Component {
 
   constructor(props) {
     super(props)
-
-    this.state = {
-      months: [],
-      entires: [],
-      accounts: [
-        { id: 2, name: "asdasd"},
-        { id: 6, name: "dfdfew"}
-      ]
-    }
-
-    this.initializeMonths(new Date("2017-07-25"), new Date("2018-12-10"))
-    this.initializeEntries()
   }
 
-  initializeMonths() {
-    const start = _date.startOfMonth(this.props.startDate)
-    const end = _date.endOfMonth(this.props.endDate)
-    const diff = _date.differenceInMonths(end, start) + 1
-
-    let months = []
-    for(let i = 0; i < diff; i++) {
-      months.push(_date.addMonths(start, i))
+  months(startDate, endDate) {
+    if (startDate > endDate) {
+      throw `startDate(${startDate}) must not be greater than endDate(${endDate})`
     }
 
-    this.state.months = months
+    const startOfMonth = moment(startDate).utc().startOf('month')
+    const endOfMonth = moment(endDate).utc().endOf('month')
+
+    const calc = (acc) => {
+      const lastProcessed = _.first(acc)
+      const plusOne = moment(lastProcessed).add(1, 'month')
+      return plusOne.isBefore(endOfMonth) ? calc(_.concat(plusOne, acc)) : acc
+    }
+    const dates = calc([startOfMonth])
+    return dates.map(m => m.toDate()).reverse()
   }
 
-  initializeEntries() {
-    const entries = this.props.transactions.map(tx => {
-      return tx.splits.map(s => {
+  categories(accounts, months) {
+    const monthsMap = months.reduce((acc, month) => {
+      const key = moment(month).utc().format('YYYY-MM-DD')
+      return acc.set(key, 0)
+    }, Map())
+
+    return accounts.reduce((acc, account) => acc.set(account.id, monthsMap), Map())
+  }
+
+  cells(categories, transactions) {
+    return transactions.reduce((acct, tx) => {
+      const month = moment(tx.date).utc().startOf('month').format('YYYY-MM-DD')
+      return tx.splits.reduce((accs, s) => {
         const value = s.position == "credit" ? -s.value : s.value
-        return { date: new Date(tx.date), account_id: s.account_id, value: value }
-      })
-    })
-
-    this.state.entries = _.flatten(entries)
-  }
-
-  tbody() {
-    return this.state.accounts.map(account => {
-      const cells = this.state.months.map(startOfMonth => {
-        const endOfMonth = _date.endOfMonth(startOfMonth)
-        const entries = this.state.entries.filter(e => {
-          return e.account_id == account.id && _date.isWithinRange(e.date, startOfMonth, endOfMonth)
-        })
-        const value = entries.reduce((acc, e) => acc + e.value, 0)
-        const key = [account.id, startOfMonth].join(";")
-        return <td key={key}>{value}</td>
-      })
-
-      return (
-        <tr key={account.id}>
-          <td>{account.name}</td>
-          {cells}
-        </tr>
-      )
-    })
-  }
-
-  thead() {
-    const cells = this.state.months
-      .map(d => _date.format(d, 'YYYY-MM'))
-      .map(m => <th key={m}>{m}</th>)
-
-    return (
-      <tr>
-        <th>Account</th>
-        {cells}
-      </tr>
-    )
+        const monthsMap = accs.get(s.account_id) || Map()
+        const currentValue = monthsMap.get(month) || 0
+        const updatedMonthsMap = monthsMap.set(month, currentValue + value)
+        return accs.set(s.account_id, updatedMonthsMap)
+      }, acct)
+    }, categories)
   }
 
   render() {
-    return <div>
-      <table>
-        <thead>
-          {this.thead()}
-        </thead>
-        <tbody>
-          {this.tbody()}
-        </tbody>
-      </table>
-    </div>
+    const months = this.months(this.props.startDate, this.props.endDate)
+    const headers = months.map(d => {
+      const month = moment(d).utc().format('YYYY-MM')
+      return <th key={month}>{month}</th>
+    })
+
+    const categories = this.categories(this.props.accounts, months)
+    const cells = this.cells(categories, this.props.transactions)
+    const body = cells.map((row, account_id) => {
+      const account = this.props.accounts.find(a => a.id == account_id) || {}
+      const tableCells = row.map((value, month) => {
+        const key = [account_id, month].join()
+        return <td key={key}>{value}</td>
+      }).toArray()
+
+      return (
+        <tr key={account_id}>
+          <td>{account.name}</td>
+          {tableCells}
+        </tr>
+      )
+    }).toArray()
+
+    return (
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Account</th>
+              {headers}
+            </tr>
+          </thead>
+          <tbody>
+            {body}
+          </tbody>
+        </table>
+      </div>
+    )
   }
 }
+
+TransactionSummary.defaultProps = {
+  accounts: [],
+  transactions: []
+};

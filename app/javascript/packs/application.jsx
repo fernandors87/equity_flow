@@ -30,14 +30,20 @@ class Application extends React.Component {
         ]
       }
     ]
+
+    this.state.accounts = [
+      { id: 2, name: "acc 1"},
+      { id: 6, name: "acc 2"}
+    ]
   }
 
   render () {
     return <div>
       <TransactionSummary
         transactions={this.state.transactions}
-        startDate={new Date("2017-07-25")}
-        endDate={new Date("2018-07-25")}
+        accounts={this.state.accounts}
+        startDate={new Date("2017-10-25")}
+        endDate={new Date("2018-02-25")}
         />
     </div>
   }
