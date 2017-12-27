@@ -1,40 +1,27 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import TransactionSummary from './transaction_summary'
+import API from './../src/api'
 
 class Application extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {};
-    this.state.transactions = [
-      {
-        id: 1,
-        date: "2018-01-10",
-        description: null,
-        created_at: "2017-12-22T17:13:49.533Z",
-        updated_at: "2017-12-22T17:13:49.533Z",
-        splits: [
-          {
-            id: 1,
-            account_id: 2,
-            position: "debit",
-            value: 1000.0
-          },
-          {
-            id: 2,
-            account_id: 6,
-            position: "credit",
-            value: 1000.0
-          }
-        ]
-      }
-    ]
+    this.state = {
+      transactions: []
+    };
 
     this.state.accounts = [
       { id: 2, name: "acc 1"},
       { id: 6, name: "acc 2"}
     ]
+  }
+
+  componentDidMount() {
+    const api = new API()
+    api.transactions.list().then(tx => {
+      this.setState({transactions: tx})
+    })
   }
 
   render () {
@@ -48,6 +35,8 @@ class Application extends React.Component {
     </div>
   }
 }
+
+window.api = new API()
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(

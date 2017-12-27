@@ -6,7 +6,7 @@ RSpec.describe "/api/v1/deals", type: :request do
   before { create_list(:deal, 1) }
 
   describe("GET") do
-    it "display all deals" do
+    it "render all deals as json" do
       get "/api/v1/deals"
 
       expect(response).to have_http_status(200)
