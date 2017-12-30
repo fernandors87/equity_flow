@@ -106,7 +106,7 @@ function tableCells(account, months, splits) {
   const values = months.map(startOfMonth => {
     const month = startOfMonth.format('YYYY-MM')
     const sOfMonth = splits.filter(s => s.date.format('YYYY-MM') == month)
-    const value = sOfMonth.map(s => s.value).reduce((a, b) => a + b, 0)
+    const value = sOfMonth.toList().map(s => s.value).reduce((a, b) => a + b, 0)
     const key = [account.id, month].join(',')
     return { key: key, value: value }
   })

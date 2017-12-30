@@ -46,10 +46,17 @@ describe('TransactionSummary', () => {
       account_id: 2,
       deal_id: 3,
       date: moment('2018-02-20').utc(),
-      value: -5.0
+      value: -2.5
     },
     {
-      id: 6,
+      id: 7,
+      account_id: 2,
+      deal_id: 3,
+      date: moment('2018-02-21').utc(),
+      value: -2.5
+    },
+    {
+      id: 7,
       account_id: 2,
       deal_id: 3,
       date: moment('2018-02-20').utc(),
