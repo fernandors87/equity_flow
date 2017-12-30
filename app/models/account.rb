@@ -24,6 +24,15 @@ class Account < ApplicationRecord
     parent ? [parent.full_name, name].join(":") : name
   end
 
+  # TODO: test
+  def as_json(options = {})
+    if options.key?(:hierarchy)
+      super(options).merge(children: children.map { |c| c.as_json(hierarchy: true) })
+    else
+      super(options)
+    end
+  end
+
   private
 
   def calculate_level

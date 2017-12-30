@@ -1,7 +1,12 @@
-extends: standard
-env:
-  jest: true
+extends:
+  - eslint:recommended
+parserOptions:
+  ecmaVersion: 6
+  sourceType: module
 plugins:
   - react
+env:
+  jest: true
+  es6: true
 globals:
   ActionCable: true

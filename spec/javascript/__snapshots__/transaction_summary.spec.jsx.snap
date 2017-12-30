@@ -1,9 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TransactionSummary render a table with monthly account values 1`] = `
+exports[`TransactionSummary should render a table with monthly account values 1`] = `
 <div>
   <table
-    class="table"
+    className="table"
+  >
+    <thead>
+      <tr>
+        <th>
+          Account
+        </th>
+        <th>
+          2018-01
+        </th>
+        <th>
+          2018-02
+        </th>
+        <th>
+          2018-03
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          account 1
+        </td>
+        <td>
+          -9.99
+        </td>
+        <td>
+          9.99
+        </td>
+        <td>
+          0.00
+        </td>
+      </tr>
+      <tr>
+        <td>
+          account 2
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          -9.99
+        </td>
+        <td>
+          0.00
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;
+
+exports[`TransactionSummary should render nicely with default props 1`] = `
+<div>
+  <table
+    className="table"
   >
     <thead>
       <tr>
@@ -19,52 +74,36 @@ exports[`TransactionSummary render a table with monthly account values 1`] = `
         <th>
           2017-03
         </th>
+        <th>
+          2017-04
+        </th>
+        <th>
+          2017-05
+        </th>
+        <th>
+          2017-06
+        </th>
+        <th>
+          2017-07
+        </th>
+        <th>
+          2017-08
+        </th>
+        <th>
+          2017-09
+        </th>
+        <th>
+          2017-10
+        </th>
+        <th>
+          2017-11
+        </th>
+        <th>
+          2017-12
+        </th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>
-          account 1
-        </td>
-        <td>
-          1000
-        </td>
-        <td>
-          999.99
-        </td>
-        <td>
-          0
-        </td>
-      </tr>
-      <tr>
-        <td>
-          account 2
-        </td>
-        <td>
-          -1000
-        </td>
-        <td>
-          -99.99
-        </td>
-        <td>
-          0
-        </td>
-      </tr>
-      <tr>
-        <td>
-          account 3
-        </td>
-        <td>
-          0
-        </td>
-        <td>
-          -900
-        </td>
-        <td>
-          0
-        </td>
-      </tr>
-    </tbody>
+    <tbody />
   </table>
 </div>
 `;

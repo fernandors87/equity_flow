@@ -1,97 +1,134 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
+
 import * as _ from 'lodash'
-import { Map } from 'immutable'
+import moment from 'moment'
+import { List, Set, Map } from 'immutable'
 
 export default class TransactionSummary extends React.Component {
 
   constructor(props) {
     super(props)
+    this.state = defaultState(props)
   }
 
-  months(startDate, endDate) {
-    if (startDate > endDate) {
-      throw `startDate(${startDate}) must not be greater than endDate(${endDate})`
-    }
-
-    const startOfMonth = moment(startDate).utc().startOf('month')
-    const endOfMonth = moment(endDate).utc().endOf('month')
-
-    const calc = (acc) => {
-      const lastProcessed = _.first(acc)
-      const plusOne = moment(lastProcessed).add(1, 'month')
-      return plusOne.isBefore(endOfMonth) ? calc(_.concat(plusOne, acc)) : acc
-    }
-    const dates = calc([startOfMonth])
-    return dates.map(m => m.toDate()).reverse()
-  }
-
-  categories(accounts, months) {
-    const monthsMap = months.reduce((acc, month) => {
-      const key = moment(month).utc().format('YYYY-MM-DD')
-      return acc.set(key, 0)
-    }, Map())
-
-    return accounts.reduce((acc, account) => acc.set(account.id, monthsMap), Map())
-  }
-
-  cells(categories, transactions) {
-    return transactions.reduce((acct, tx) => {
-      const month = moment(tx.date).utc().startOf('month').format('YYYY-MM-DD')
-      return tx.splits.reduce((accs, s) => {
-        const value = s.position == "credit" ? -s.value : s.value
-        const monthsMap = accs.get(s.account_id) || Map()
-        const currentValue = monthsMap.get(month) || 0
-        const updatedMonthsMap = monthsMap.set(month, currentValue + value)
-        return accs.set(s.account_id, updatedMonthsMap)
-      }, acct)
-    }, categories)
+  componentWillReceiveProps(nextProps) {
+    this.setState(defaultState(nextProps))
   }
 
   render() {
-    const months = this.months(this.props.startDate, this.props.endDate)
-    const headers = months.map(d => {
-      const month = moment(d).utc().format('YYYY-MM')
-      return <th key={month}>{month}</th>
-    })
+    const headers = this.state.months
+      .map(d => d.format('YYYY-MM'))
+      .map(m => <th key={m}>{m}</th>)
 
-    const categories = this.categories(this.props.accounts, months)
-    const cells = this.cells(categories, this.props.transactions)
-    const body = cells.map((row, account_id) => {
-      const account = this.props.accounts.find(a => a.id == account_id) || {}
-      const tableCells = row.map((value, month) => {
-        const key = [account_id, month].join()
-        return <td key={key}>{value}</td>
-      }).toArray()
+    const {accounts, months} = this.state
+    const {splits} = this.props
 
-      return (
-        <tr key={account_id}>
-          <td>{account.name}</td>
-          {tableCells}
-        </tr>
-      )
-    }).toArray()
+    const body = tableBody(accounts, months, splits)
 
     return (
       <div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Account</th>
-              {headers}
-            </tr>
-          </thead>
-          <tbody>
-            {body}
-          </tbody>
-        </table>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Account</th>
+            {headers}
+          </tr>
+        </thead>
+        <tbody>
+          {body}
+        </tbody>
+      </table>
       </div>
     )
   }
 }
 
 TransactionSummary.defaultProps = {
-  accounts: [],
-  transactions: []
-};
+  accounts: Set(),
+  splits: Set(),
+  startDate: moment.utc().subtract(11, 'months'),
+  endDate: moment.utc()
+}
+
+TransactionSummary.propTypes = {
+  accounts: PropTypes.instanceOf(Set),
+  splits: PropTypes.instanceOf(Set),
+  startDate: PropTypes.instanceOf(moment),
+  endDate: PropTypes.instanceOf(moment)
+}
+
+function defaultState(props) {
+  const startDate = moment(props.startDate).utc()
+  const endDate = moment(props.endDate).utc()
+
+  return {
+    accounts: accountsTree(props.accounts),
+    startDate: startDate,
+    endDate: endDate,
+    months: months(startDate, endDate)
+  }
+}
+
+export function months(startDate, endDate) {
+  if (startDate.isAfter(endDate)) {
+    throw `startDate(${startDate}) must not be greater than endDate(${endDate})`
+  }
+
+  const startOfMonth = moment(startDate).startOf('month')
+  const endOfMonth = moment(endDate).endOf('month')
+
+  const calc = (acc) => {
+    const lastProcessed = acc.last()
+    const plusOne = moment(lastProcessed).add(1, 'month')
+    return plusOne.isBefore(endOfMonth) ? calc(acc.push(plusOne)) : acc
+  }
+  return calc(List.of(startOfMonth))
+}
+
+export function accountsTree(_accounts) {
+  const accounts = Set(_accounts).sortBy(a => a.name)
+  const lookup = Map(accounts.map(a => [a.id, a]))
+
+  return accounts.reduce((res, account) => {
+    const parent = lookup.get(account.parent_id)
+    account.children = (account.children || Set())
+    if (parent) {
+      parent.children = (parent.children || Set()).add(account)
+      return res
+    }
+
+    return res.set(account.id, account)
+  }, Map()).toSet()
+}
+
+function tableCells(account, months, splits) {
+  const values = months.map(startOfMonth => {
+    const month = startOfMonth.format('YYYY-MM')
+    const sOfMonth = splits.filter(s => s.date.format('YYYY-MM') == month)
+    const value = sOfMonth.map(s => s.value).reduce((a, b) => a + b, 0)
+    const key = [account.id, month].join(',')
+    return { key: key, value: value }
+  })
+
+  return values.map(e => {
+    return <td key={e.key}>{e.value.toFixed(2)}</td>
+  })
+}
+
+function tableRows(account, months, _splits) {
+  const splits = _splits.filter(s => s.account_id == account.id)
+  const cells = tableCells(account, months, splits)
+  const children = account.children.map(c => tableRows(c, months, _splits))
+  const root = (
+    <tr key={account.id}>
+      <td>{account.name}</td>
+      {cells}
+    </tr>
+  )
+  return [root, children]
+}
+
+function tableBody(accounts, months, splits) {
+  return accounts.map(account => tableRows(account, months, splits))
+}

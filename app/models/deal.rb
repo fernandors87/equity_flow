@@ -8,7 +8,7 @@ class Deal < ApplicationRecord
   validate :balance
 
   def as_json(options = {})
-    super(options).merge("splits" => splits.as_json(except: :deal_id))
+    super(options.merge(include: { splits: { except: [:deal_id] } }))
   end
 
   private

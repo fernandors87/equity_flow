@@ -14,7 +14,13 @@ class Split < ApplicationRecord
   validates :position, presence: true
   validates :value, presence: true, numericality: { greater_than: 0 }
 
+  delegate :date, to: :deal, allow_nil: true
+
   def signed_value
     position.credit? ? -value : value
+  end
+
+  def as_json(options = {})
+    super(options.merge(methods: :date))
   end
 end

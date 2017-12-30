@@ -2,9 +2,9 @@
 
 module Api
   module V1
-    class DealsController < Api::BaseController
+    class SplitsController < Api::BaseController
       def index
-        respond_with Deal.includes(:splits).all
+        respond_with Split.includes(:deal).all
       end
     end
   end
