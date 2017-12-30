@@ -8,8 +8,8 @@ import moment from 'moment'
 describe('TransactionSummary', () => {
 
   const accounts = Set([
-    { id: 1, name: 'account 1', parent_id: null },
-    { id: 2, name: 'account 2', parent_id: 1 }
+    { id: 1, name: 'account 1', level: 0, parent_id: null },
+    { id: 2, name: 'account 2', level: 1, parent_id: 1 }
   ])
 
   const splits = Set([

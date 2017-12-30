@@ -120,9 +120,13 @@ function tableRows(account, months, _splits) {
   const splits = _splits.filter(s => s.account_id == account.id)
   const cells = tableCells(account, months, splits)
   const children = account.children.map(c => tableRows(c, months, _splits))
+  const style = {
+    textIndent: `${account.level}em`
+  }
+  console.log(style)
   const root = (
     <tr key={account.id}>
-      <td>{account.name}</td>
+      <td style={style}>{account.name}</td>
       {cells}
     </tr>
   )

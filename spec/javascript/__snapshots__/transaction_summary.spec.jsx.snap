@@ -23,7 +23,13 @@ exports[`TransactionSummary should render a table with monthly account values 1`
     </thead>
     <tbody>
       <tr>
-        <td>
+        <td
+          style={
+            Object {
+              "textIndent": "0em",
+            }
+          }
+        >
           account 1
         </td>
         <td>
@@ -37,7 +43,13 @@ exports[`TransactionSummary should render a table with monthly account values 1`
         </td>
       </tr>
       <tr>
-        <td>
+        <td
+          style={
+            Object {
+              "textIndent": "1em",
+            }
+          }
+        >
           account 2
         </td>
         <td>

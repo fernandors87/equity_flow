@@ -5,7 +5,7 @@ import moment from 'moment'
 import {Set} from 'immutable'
 
 import * as API from './../src/api'
-import bootstrap from '../src/application.scss'
+import '../src/application.scss'
 import TransactionSummary from './transaction_summary'
 
 class Application extends React.Component {
