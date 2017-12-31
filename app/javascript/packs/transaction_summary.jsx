@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import * as _ from 'lodash'
 import moment from 'moment'
-import { List, Set, Map } from 'immutable'
+import { List, Set, Map, Record } from 'immutable'
 
 export default class TransactionSummary extends React.Component {
 
@@ -17,27 +17,14 @@ export default class TransactionSummary extends React.Component {
   }
 
   render() {
-    const headers = this.state.months
-      .map(d => d.format('YYYY-MM'))
-      .map(m => <th key={m}>{m}</th>)
-
     const {accounts, months} = this.state
     const {splits} = this.props
-
-    const body = tableBody(accounts, months, splits)
 
     return (
       <div>
       <table className="table">
-        <thead>
-          <tr>
-            <th>Account</th>
-            {headers}
-          </tr>
-        </thead>
-        <tbody>
-          {body}
-        </tbody>
+        { TableHead(months) }
+        { TableBody(months, accounts, splits) }
       </table>
       </div>
     )
@@ -102,37 +89,63 @@ export function accountsTree(_accounts) {
   }, Map()).toSet()
 }
 
-function tableCells(account, months, splits) {
-  const values = months.map(startOfMonth => {
-    const month = startOfMonth.format('YYYY-MM')
-    const sOfMonth = splits.filter(s => s.date.format('YYYY-MM') == month)
-    const value = sOfMonth.toList().map(s => s.value).reduce((a, b) => a + b, 0)
-    const key = [account.id, month].join(',')
-    return { key: key, value: value }
-  })
+function TableHead(months) {
+  const headers = months
+    .map(d => d.format('YYYY-MM'))
+    .map(m => <th key={m}>{m}</th>)
 
-  return values.map(e => {
-    return <td key={e.key}>{e.value.toFixed(2)}</td>
-  })
+  return (
+    <thead>
+      <tr>
+        <th>Account</th>
+        {headers}
+        <th>Mean</th>
+      </tr>
+    </thead>
+  )
 }
 
-function tableRows(account, months, _splits) {
+function TableBody(months, accounts, splits) {
+  const rows = accounts.map(account => TableRows(months, account, splits))
+  return (
+    <tbody>
+      {rows}
+    </tbody>
+  )
+}
+
+function TableRows(months, account, _splits) {
   const splits = _splits.filter(s => s.account_id == account.id)
-  const cells = tableCells(account, months, splits)
-  const children = account.children.map(c => tableRows(c, months, _splits))
+  const cells = TableCells(account, months, splits)
+  const children = account.children.map(c => TableRows(months, c, _splits))
   const style = {
     textIndent: `${account.level}em`
   }
-  console.log(style)
+
+  const mean = cells.reduce((a, b) => a + b.value, 0) / cells.size
   const root = (
     <tr key={account.id}>
       <td style={style}>{account.name}</td>
-      {cells}
+      {cells.map(c => c.html)}
+      {TableCell({row: account.id, column: 'mean', value: mean}).html}
     </tr>
   )
-  return [root, children]
+  return List.of(root).push(children)
 }
 
-function tableBody(accounts, months, splits) {
-  return accounts.map(account => tableRows(account, months, splits))
+function TableCell(options) {
+  const { row, column } = options
+  const key = [options.row, options.column].join(',')
+  const value = options.value || 0
+  const html = <td key={key}>{value.toFixed(2)}</td>
+  return {row, column, key, value, html}
+}
+
+function TableCells(account, months, splits) {
+  return months.map(startOfMonth => {
+    const month = startOfMonth.format('YYYY-MM')
+    const sOfMonth = splits.filter(s => s.date.format('YYYY-MM') == month)
+    const value = sOfMonth.toList().reduce((a, b) => a + b.value, 0)
+    return TableCell({ row: account.id, column: month, value: value })
+  })
 }
