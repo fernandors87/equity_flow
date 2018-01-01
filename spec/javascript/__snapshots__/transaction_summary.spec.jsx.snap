@@ -19,6 +19,9 @@ exports[`TransactionSummary should render a table with monthly account values 1`
         <th>
           2018-03
         </th>
+        <th>
+          Mean
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -26,11 +29,11 @@ exports[`TransactionSummary should render a table with monthly account values 1`
         <td
           style={
             Object {
-              "textIndent": "0em",
+              "textIndent": "1em",
             }
           }
         >
-          account 1
+          a1
         </td>
         <td>
           -9.99
@@ -41,16 +44,19 @@ exports[`TransactionSummary should render a table with monthly account values 1`
         <td>
           0.00
         </td>
+        <td>
+          0.00
+        </td>
       </tr>
       <tr>
         <td
           style={
             Object {
-              "textIndent": "1em",
+              "textIndent": "2em",
             }
           }
         >
-          account 2
+          a2
         </td>
         <td>
           0.00
@@ -60,6 +66,9 @@ exports[`TransactionSummary should render a table with monthly account values 1`
         </td>
         <td>
           0.00
+        </td>
+        <td>
+          -3.33
         </td>
       </tr>
     </tbody>
@@ -76,9 +85,6 @@ exports[`TransactionSummary should render nicely with default props 1`] = `
       <tr>
         <th>
           Account
-        </th>
-        <th>
-          2017-01
         </th>
         <th>
           2017-02
@@ -112,6 +118,12 @@ exports[`TransactionSummary should render nicely with default props 1`] = `
         </th>
         <th>
           2017-12
+        </th>
+        <th>
+          2018-01
+        </th>
+        <th>
+          Mean
         </th>
       </tr>
     </thead>

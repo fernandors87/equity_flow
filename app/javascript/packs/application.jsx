@@ -33,7 +33,7 @@ class Application extends React.Component {
           accounts={this.state.accounts}
           splits={this.state.splits}
           startDate={moment("2017-07-01").utc()}
-          endDate={moment("2017-12-31").utc()}
+          endDate={moment("2018-01-31").utc()}
           />
       </div>
     )

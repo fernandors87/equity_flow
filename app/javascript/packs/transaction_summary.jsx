@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import * as _ from 'lodash'
 import moment from 'moment'
-import { List, Set, Map, Record } from 'immutable'
+import { List, Set, Map, Record, OrderedMap, OrderedSet } from 'immutable'
 
 export default class TransactionSummary extends React.Component {
 
@@ -74,19 +74,19 @@ export function months(startDate, endDate) {
 }
 
 export function accountsTree(_accounts) {
-  const accounts = Set(_accounts).sortBy(a => a.name)
+  const accounts = Set(_accounts).sortBy(a => a.full_name)
   const lookup = Map(accounts.map(a => [a.id, a]))
 
   return accounts.reduce((res, account) => {
     const parent = lookup.get(account.parent_id)
-    account.children = (account.children || Set())
+    account.children = (account.children || OrderedSet())
     if (parent) {
-      parent.children = (parent.children || Set()).add(account)
+      parent.children = (parent.children || OrderedSet()).add(account)
       return res
     }
 
     return res.set(account.id, account)
-  }, Map()).toSet()
+  }, OrderedMap()).toOrderedSet()
 }
 
 function TableHead(months) {

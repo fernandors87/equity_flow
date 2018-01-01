@@ -8,8 +8,8 @@ import moment from 'moment'
 describe('TransactionSummary', () => {
 
   const accounts = Set([
-    { id: 1, name: 'account 1', level: 0, parent_id: null },
-    { id: 2, name: 'account 2', level: 1, parent_id: 1 }
+    { id: 1, name: 'a1', full_name: 'a1', level: 1, parent_id: null },
+    { id: 2, name: 'a2', full_name: 'a1:a2', level: 2, parent_id: 1 }
   ])
 
   const splits = Set([
@@ -79,27 +79,29 @@ describe('TransactionSummary', () => {
 
   describe('accountsTree', () => {
 
-    it('generate an account tree sorted by name', () => {
+    it('generate an account tree sorted by full name', () => {
       const accounts = Set([
-        { id: 1, name: 'account 6', level: 0, parent_id: null },
-        { id: 2, name: 'account 5', level: 0, parent_id: null },
-        { id: 3, name: 'account 4', level: 1, parent_id: 1 },
-        { id: 4, name: 'account 3', level: 1, parent_id: 1 },
-        { id: 5, name: 'account 2', level: 1, parent_id: 2 },
-        { id: 6, name: 'account 1', level: 2, parent_id: 3 },
+        { id: 1, name: 'a6', full_name: 'a6', level: 1, parent_id: null },
+        { id: 2, name: 'a5', full_name: 'a5', level: 1, parent_id: null },
+        { id: 3, name: 'a4', full_name: 'a6:a4', level: 2, parent_id: 1 },
+        { id: 4, name: 'a3', full_name: 'a6:a3', level: 2, parent_id: 1 },
+        { id: 5, name: 'a2', full_name: 'a5:a2', level: 2, parent_id: 2 },
+        { id: 6, name: 'a1', full_name: 'a6:a4:a1', level: 3, parent_id: 3 },
       ])
 
       const expected = Set([
         {
           id: 2,
-          name: 'account 5',
-          level: 0,
+          name: 'a5',
+          full_name: 'a5',
+          level: 1,
           parent_id: null,
           children: Set([
             {
               id: 5,
-              name: 'account 2',
-              level: 1,
+              name: 'a2',
+              full_name: 'a5:a2',
+              level: 2,
               parent_id: 2,
               children: Set()
             }
@@ -107,27 +109,31 @@ describe('TransactionSummary', () => {
         },
         {
           id: 1,
-          name: 'account 6',
-          level: 0,
+          name: 'a6',
+          full_name: 'a6',
+          level: 1,
           parent_id: null,
           children: Set([
             {
               id: 4,
-              name: 'account 3',
-              level: 1,
+              name: 'a3',
+              full_name: 'a6:a3',
+              level: 2,
               parent_id: 1,
               children: Set()
             },
             {
               id: 3,
-              name: 'account 4',
-              level: 1,
+              name: 'a4',
+              full_name: 'a6:a4',
+              level: 2,
               parent_id: 1,
               children: Set([
                 {
                   id: 6,
-                  name: 'account 1',
-                  level: 2,
+                  name: 'a1',
+                  full_name: 'a6:a4:a1',
+                  level: 3,
                   parent_id: 3,
                   children: Set()
                 }
