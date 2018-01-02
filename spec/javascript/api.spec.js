@@ -1,6 +1,6 @@
+import * as CustomMatchers from './custom_matchers'
 import { AccountRecord, SplitRecord } from 'src/model'
 import { OrderedSet, Set } from 'immutable'
-import * as CustomMatchers from './custom_matchers'
 import moment from 'moment'
 
 expect.extend(CustomMatchers)
@@ -23,12 +23,12 @@ describe('api', () => {
 
       const data = [{
         id: 1,
-        name: "Bank",
-        description: "desc",
-        "type": "asset",
+        name: 'Bank',
+        description: 'desc',
+        'type': 'asset',
         parent_id: 2,
         level: 2,
-        full_name: "Assets:Bank"
+        full_name: 'Assets:Bank'
       }]
 
       it('should transform the response to an OrderedSet<AccountRecord>', () => {
@@ -38,12 +38,12 @@ describe('api', () => {
         expect.assertions(1)
         const expectedRecord = AccountRecord({
           id: 1,
-          name: "Bank",
-          description: "desc",
-          "type": "asset",
+          name: 'Bank',
+          description: 'desc',
+          'type': 'asset',
           parent_id: 2,
           level: 2,
-          full_name: "Assets:Bank",
+          full_name: 'Assets:Bank',
           children: OrderedSet()
         })
 
@@ -64,9 +64,9 @@ describe('api', () => {
         id: 1,
         account_id: 2,
         deal_id: 3,
-        position: "credit",
-        value: "123.45",
-        date: "2018-01-01"
+        position: 'credit',
+        value: '123.45',
+        date: '2018-01-01'
       }]
 
       it('should transform the response to a Set<SplitRecord>', () => {

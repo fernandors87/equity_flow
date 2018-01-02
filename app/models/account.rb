@@ -35,8 +35,8 @@ class Account < ApplicationRecord
   private
 
   def resolve_level
-    self.level = (self.parent.try(:level) || 0) + 1
-    self.children.each(&:save!) if self.level_changed?
+    self.level = (parent.try(:level) || 0) + 1
+    children.each(&:save!) if level_changed?
   end
 
   def self_reference

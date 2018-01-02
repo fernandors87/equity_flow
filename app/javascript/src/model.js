@@ -1,4 +1,4 @@
-import { Record, OrderedSet } from 'immutable'
+import { OrderedSet, Record } from 'immutable'
 
 export const AccountRecord = Record({
   id: null,

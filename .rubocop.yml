@@ -9,6 +9,7 @@ Layout/IndentArray:
 
 Metrics/BlockLength:
   Exclude:
+    - lib/tasks/build.rake
     - spec/**/*_spec.rb
 
 Metrics/LineLength:

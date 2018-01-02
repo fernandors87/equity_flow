@@ -1,12 +1,31 @@
-extends:
-  - eslint:recommended
+env:
+  browser: true
+  es6: true
+  jest: true
+extends: 'eslint:recommended'
+globals:
+  ActionCable: true
 parserOptions:
-  ecmaVersion: 6
+  ecmaFeatures:
+    jsx: true
   sourceType: module
 plugins:
   - react
-env:
-  jest: true
-  es6: true
-globals:
-  ActionCable: true
+rules:
+  arrow-body-style:
+    - error
+    - as-needed
+  no-duplicate-imports:
+    - error
+  object-shorthand:
+    - warn
+  quotes:
+    - error
+    - single
+  semi:
+    - warn
+    - never
+  sort-imports:
+    - warn
+  sort-vars:
+    - warn

@@ -31,6 +31,21 @@
     "webpack-dev-server": "^2.9.7"
   },
   "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    },
+    "collectCoverageFrom": [
+      "app/javascript/**/*.{js,jsx}"
+    ],
+    "coverageReporters": [
+      "html", "text"
+    ],
+    "coverageDirectory": "coverage_js",
     "moduleDirectories": [
       "node_modules",
       "app/javascript"

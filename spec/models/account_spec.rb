@@ -3,12 +3,11 @@
 require "rails_helper"
 
 RSpec.describe Account, type: :model do
-
-  let(:a1) { create(:account, name: "n1", ) }
+  let(:a1) { create(:account, name: "n1") }
   let(:a2) { create(:account, name: "n2", parent: a1) }
   let(:a3) { create(:account, name: "n3", parent: a2) }
   let(:a4) { create(:account, name: "n4", parent: a1) }
-  let(:a5) { create(:account, name: "n5", ) }
+  let(:a5) { create(:account, name: "n5") }
   let(:a6) { create(:account, name: "n6", parent: a5) }
   let(:a7) { create(:account, name: "n7", parent: a5) }
   let(:a8) { create(:account, name: "n8", parent: a7) }
@@ -53,7 +52,7 @@ RSpec.describe Account, type: :model do
     expect(a2.level).to eq(2)
     expect(a3.level).to eq(3)
 
-    a2.update_attributes!({parent: a1})
+    a2.update_attributes!(parent: a1)
     [a1, a2, a3].each(&:reload)
 
     expect(a1.level).to eq(1)
