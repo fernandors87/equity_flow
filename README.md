@@ -1,24 +1,75 @@
-# README
+# EQUITY FLOW
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+It's a personal financial software.
 
-Things you may want to cover:
+## Developer Guide
 
-* Ruby version
+### System Dependencies
 
-* System dependencies
+- [RVM 1.29+](https://rvm.io/rvm/install)
+- [Ruby 2.4.x](https://rvm.io/rubies/installing)
+- [Node.js 6.7+](https://nodejs.org/en/download/package-manager)
+- [SQLite 3.x](https://www.sqlite.org/download.html)
+- [Yarn 1.3.x](https://yarnpkg.com/en/docs/install)
 
-* Configuration
+### Configuration
 
-* Database creation
+1. Clone this repository
 
-* Database initialization
+    ```shell
+    $ git clone git@github.com:fernandors87/equity_flow.git
+    ```
 
-* How to run the test suite
+2. Set your system to use the right Ruby environment
 
-* Services (job queues, cache servers, search engines, etc.)
+    ```shell
+    $ rvm use 2.4.1@equity_flow
+    ```
 
-* Deployment instructions
+3. Install Ruby dependencies
 
-* ...
+    ```shell
+    $ gem install bundler
+    $ bundle install
+    ```
+
+4. Install Javascript dependencies
+
+    ```shell
+    $ yarn install
+    ```
+
+5. Create the database
+
+    ```shell
+    $ rake db:create
+    $ rake db:migrate
+    ```
+
+### Starting the application
+
+1. Start the assets development server
+
+    ```shell
+    $ webpack-dev-server
+    ```
+
+2. Open another shell tab and start the Rails server
+
+    ```shell
+    $ rails server
+    ```
+
+### Tests
+
+1. Tests
+
+    ```shell
+    $ rake build:test
+    ```
+
+2. Coverage
+
+    ```shell
+    $ rake build:coverage
+    ```

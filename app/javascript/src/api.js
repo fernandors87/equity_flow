@@ -12,6 +12,7 @@ export const accounts = {
   }
 }
 
+// FIXME: This call should be replaced by a lightweight alternative
 export const splits = {
   list() {
     return axios('/api/v1/splits').then(response =>

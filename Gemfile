@@ -30,9 +30,10 @@ gem "jbuilder", "~> 2.5"
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+gem "enumerize", "~> 2.1.2"
+gem "responders", "~> 2.4.0"
+gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
+gem "webpacker", "~> 3.2.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -56,9 +57,3 @@ group :development do
   gem "spring", "~> 2.0.2"
   gem "spring-watcher-listen", "~> 2.0.0"
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem "enumerize", "~> 2.1.2"
-gem "responders", "~> 2.4.0"
-gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
-gem "webpacker", "~> 3.2.0"

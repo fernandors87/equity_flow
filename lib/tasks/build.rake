@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 namespace :build do
+  desc "Precompile assets"
+  task :assets do
+    Rake::Task["assets:precompile"].invoke
+  end
+
   desc "Run all coverage suites"
   task :coverage do
     Rake::Task["build:coverage:js"].invoke
@@ -17,6 +22,11 @@ namespace :build do
     task :ruby do
       sh "COVERAGE=1 rspec"
     end
+  end
+
+  desc "Build the docker container"
+  task :docker do
+    sh "docker-compose build"
   end
 
   desc "Run all linters"
@@ -61,4 +71,6 @@ task :build do
   Rake::Task["build:test"].invoke
   Rake::Task["build:coverage"].invoke
   Rake::Task["build:lint"].invoke
+  Rake::Task["build:assets"].invoke
+  Rake::Task["build:docker"].invoke
 end

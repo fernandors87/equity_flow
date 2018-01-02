@@ -1,0 +1,9 @@
+version: "3"
+services:
+  server:
+    build: .
+    # FIXME: production env should use NGINX
+    environment:
+      - RAILS_SERVE_STATIC_FILES=1
+    ports:
+     - 3000:3000
