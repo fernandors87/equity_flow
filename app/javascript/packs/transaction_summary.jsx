@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import * as _ from 'lodash'
 import moment from 'moment'
 import { List, Set, Map, Record, OrderedMap, OrderedSet } from 'immutable'
+import * as Immutable from 'immutable'
 
 export default class TransactionSummary extends React.Component {
 
@@ -73,20 +73,27 @@ export function months(startDate, endDate) {
   return calc(List.of(startOfMonth))
 }
 
-export function accountsTree(_accounts) {
-  const accounts = Set(_accounts).sortBy(a => a.full_name)
-  const lookup = Map(accounts.map(a => [a.id, a]))
+export function accountsTree(accounts) {
+  function asImmutable(mutableAccount) {
+    const children = mutableAccount.children.map(asImmutable).asImmutable()
+    return mutableAccount.set('children', children).asImmutable()
+  }
 
-  return accounts.reduce((res, account) => {
-    const parent = lookup.get(account.parent_id)
-    account.children = (account.children || OrderedSet())
-    if (parent) {
-      parent.children = (parent.children || OrderedSet()).add(account)
-      return res
+  function asGraph(graph, mutableAccount) {
+    const mutableParent = lookup.get(mutableAccount.parent_id)
+    if (mutableParent) {
+      mutableParent.update('children', ch => ch.add(mutableAccount))
+      return graph
     }
 
-    return res.set(account.id, account)
-  }, OrderedMap()).toOrderedSet()
+    return graph.add(mutableAccount)
+  }
+
+  const mutableAccounts = accounts.map(a => a.asMutable())
+  const lookup = Map(mutableAccounts.map(a => [a.id, a]))
+  const ordered = mutableAccounts.sortBy(a => a.full_name)
+  const mutableTree = ordered.reduce(asGraph, OrderedSet())
+  return mutableTree.map(asImmutable).asImmutable()
 }
 
 function TableHead(months) {

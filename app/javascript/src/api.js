@@ -1,11 +1,14 @@
-import * as _ from 'lodash'
+import { AccountRecord, SplitRecord } from './model'
+import { OrderedSet, Set } from 'immutable'
 import axios from 'axios'
-import { Set } from 'immutable'
 import moment from 'moment'
 
 export const accounts = {
   list() {
-    return axios('/api/v1/accounts').then(response => Set(response.data))
+    return axios('/api/v1/accounts').then(response => {
+      const records = response.data.map(x => new AccountRecord(x))
+      return OrderedSet(records)
+    })
   }
 }
 
@@ -13,9 +16,10 @@ export const splits = {
   list() {
     return axios('/api/v1/splits').then(response =>
       Set(response.data).map(s => {
-        const value = s.position === 'credit' ? -parseFloat(s.value) : parseFloat(s.value)
-        const date = moment(s.date).utc()
-        return _.merge(s, {value, date})
+        const parsedValue = parseFloat(s.value)
+        const value = s.position == 'credit' ? -parsedValue : parsedValue
+        const date = moment.utc(s.date)
+        return new SplitRecord(s).merge({ value, date })
       })
     )
   }

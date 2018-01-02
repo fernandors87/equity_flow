@@ -33,7 +33,53 @@ exports[`TransactionSummary should render a table with monthly account values 1`
             }
           }
         >
-          a1
+          a5
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          -9.99
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          -3.33
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textIndent": "2em",
+            }
+          }
+        >
+          a2
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          0.00
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textIndent": "1em",
+            }
+          }
+        >
+          a6
         </td>
         <td>
           -9.99
@@ -56,19 +102,65 @@ exports[`TransactionSummary should render a table with monthly account values 1`
             }
           }
         >
-          a2
+          a3
         </td>
         <td>
           0.00
         </td>
         <td>
-          -9.99
+          0.00
         </td>
         <td>
           0.00
         </td>
         <td>
-          -3.33
+          0.00
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textIndent": "2em",
+            }
+          }
+        >
+          a4
+        </td>
+        <td>
+          -19.98
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          -6.66
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textIndent": "3em",
+            }
+          }
+        >
+          a1
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          0.00
+        </td>
+        <td>
+          0.00
         </td>
       </tr>
     </tbody>

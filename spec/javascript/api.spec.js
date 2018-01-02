@@ -1,5 +1,17 @@
+import { AccountRecord, SplitRecord } from 'src/model'
+import { OrderedSet, Set } from 'immutable'
+import * as CustomMatchers from './custom_matchers'
 import moment from 'moment'
-import { Set } from 'immutable'
+
+expect.extend(CustomMatchers)
+
+function mockResponse(mockFn) {
+  jest.doMock('axios', () => jest.fn(mockFn))
+}
+
+function api() {
+  return require('src/api')
+}
 
 describe('api', () => {
 
@@ -9,15 +21,36 @@ describe('api', () => {
 
     describe('list', () => {
 
-      it('should convert the response data to a Set', () => {
-        const data = [{ id: 1 }]
-        jest.doMock('axios', () => jest.fn(() => Promise.resolve({ data })))
+      const data = [{
+        id: 1,
+        name: "Bank",
+        description: "desc",
+        "type": "asset",
+        parent_id: 2,
+        level: 2,
+        full_name: "Assets:Bank"
+      }]
 
-        expect.assertions(2)
-        const expected = Set([{id: 1}])
-        return require('src/api').accounts.list().then(a => {
-          expect(Set.isSet(a)).toBeTruthy()
-          expect(JSON.stringify(a)).toEqual(JSON.stringify(expected))
+      it('should transform the response to an OrderedSet<AccountRecord>', () => {
+        mockResponse(() => Promise.resolve({
+          data
+        }))
+        expect.assertions(1)
+        const expectedRecord = AccountRecord({
+          id: 1,
+          name: "Bank",
+          description: "desc",
+          "type": "asset",
+          parent_id: 2,
+          level: 2,
+          full_name: "Assets:Bank",
+          children: OrderedSet()
+        })
+
+        const expectedCollection = OrderedSet.of(expectedRecord)
+
+        return api().accounts.list().then(x => {
+          expect(x).toEqualImmutable(expectedCollection)
         })
       })
     })
@@ -27,15 +60,32 @@ describe('api', () => {
 
     describe('list', () => {
 
-      it('should convert the response data to a Set', () => {
-        const data = [{ position: 'credit', value: '100', date: '2017-01-01'}]
-        jest.doMock('axios', () => jest.fn(() => Promise.resolve({ data })))
+      const data = [{
+        id: 1,
+        account_id: 2,
+        deal_id: 3,
+        position: "credit",
+        value: "123.45",
+        date: "2018-01-01"
+      }]
 
-        expect.assertions(2)
-        const expected = Set([{ 'position': 'credit', value: -100, date: moment('2017-01-01').utc() }])
-        return require('src/api').splits.list().then(s => {
-          expect(Set.isSet(s)).toBeTruthy()
-          expect(JSON.stringify(s)).toEqual(JSON.stringify(expected))
+      it('should transform the response to a Set<SplitRecord>', () => {
+        mockResponse(() => Promise.resolve({
+          data
+        }))
+        expect.assertions(1)
+        const expectedRecord = SplitRecord({
+          id: 1,
+          account_id: 2,
+          deal_id: 3,
+          value: -123.45,
+          date: moment.utc([2018, 0, 1])
+        })
+
+        const expectedCollection = Set.of(expectedRecord)
+
+        return api().splits.list().then(x => {
+          expect(x).toEqualImmutable(expectedCollection)
         })
       })
     })
