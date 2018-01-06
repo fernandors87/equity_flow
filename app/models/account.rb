@@ -40,6 +40,7 @@ class Account < ApplicationRecord
   end
 
   def self_reference
-    errors.add(:parent_id, :self_reference, {}) if parent.present? && id == parent.id
+    return unless parent.present? && parent.persisted? && parent.id == id
+    errors.add(:parent_id, :self_reference, {})
   end
 end

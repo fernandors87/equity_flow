@@ -32,11 +32,15 @@ RSpec.describe Account, type: :model do
   end
 
   it "should not allow an account be parent of itself" do
-    account = create(:account)
-    account.parent = account
-    account.name = "other name"
-    expect(account).to be_invalid
-    expect(account.errors.details[:parent_id]).to include(error: :self_reference)
+    account1 = create(:account)
+    account1.parent = account1
+    account1.name = "other name"
+    expect(account1).to be_invalid
+    expect(account1.errors.details[:parent_id]).to include(error: :self_reference)
+
+    account2 = build(:account)
+    account3 = build(:account, parent: account2)
+    expect(account3).to be_valid
   end
 
   it "should calculate level when account is saved" do

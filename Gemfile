@@ -31,6 +31,7 @@ gem "jbuilder", "~> 2.5"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem "enumerize", "~> 2.1.2"
+gem "gnucash", github: "holtrop/ruby-gnucash", branch: "master"
 gem "responders", "~> 2.4.0"
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "webpacker", "~> 3.2.0"
@@ -41,7 +42,6 @@ group :development, :test do
   gem "capybara", "~> 2.16.1"
   gem "database_cleaner", "~> 1.6.2"
   gem "factory_bot_rails", "~> 4.8.2"
-  gem "gnucash"
   gem "rspec-rails", "~> 3.7.2"
   gem "selenium-webdriver"
   gem "shoulda-matchers", "~> 3.1.2"
