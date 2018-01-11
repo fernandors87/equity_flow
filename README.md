@@ -4,6 +4,8 @@ It's a personal financial software.
 
 ## Developer Guide
 
+[![CircleCI](https://circleci.com/gh/fernandors87/equity_flow.svg?style=shield)](https://circleci.com/gh/fernandors87/equity_flow)
+
 ### System Dependencies
 
 - [RVM 1.29+](https://rvm.io/rvm/install)
