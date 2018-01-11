@@ -1,0 +1,60 @@
+version: 2
+jobs:
+  build:
+    docker:
+       - image: ruby:2.4.3-alpine3.7
+
+    working_directory: ~/app
+
+    steps:
+      - run: apk add --update gcc g++ make git openssh sqlite-dev tzdata nodejs yarn
+
+      - checkout
+
+      - restore_cache:
+         keys:
+           - rubygems-{{ checksum "Gemfile.lock" }}
+           - rubygems-
+
+      - run: bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      - save_cache:
+          paths: ["./vendor/bundle"]
+          key: rubygems-{{ checksum "Gemfile.lock" }}
+
+      - restore_cache:
+         keys:
+           - node_modules-{{ checksum "yarn.lock" }}
+           - node_modules-
+
+      - run: yarn install
+
+      - save_cache:
+          paths: ["./node_modules"]
+          key: node_modules-{{ checksum "yarn.lock" }}
+
+      - run: bundle exec rake db:create
+
+      - run: bundle exec rake db:schema:load
+
+      - run: bundle exec rspec
+
+      - store_artifacts:
+          path: ./.coverage/ruby
+          destination: ruby-coverage
+
+      - run: yarn test --coverage
+
+      - store_artifacts:
+          path: ./.coverage/js
+          destination: js-coverage
+
+      - run: bundle exec rubocop
+
+      - run: yarn lint
+
+      - run: bundle exec rake assets:precompile
+
+      - store_artifacts:
+          path: ./public
+          destination: assets

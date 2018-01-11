@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require "simplecov"
-if ENV["COVERAGE"]
+if ENV["COVERAGE"] || ENV["CI"]
   SimpleCov.minimum_coverage 90
-  SimpleCov.coverage_dir("coverage_ruby")
+  SimpleCov.coverage_dir(".coverage/ruby")
   SimpleCov.start do
     add_filter "spec"
 

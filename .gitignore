@@ -14,8 +14,7 @@
 yarn-error.log
 
 # Ignore coverage files
-/coverage_js
-/coverage_ruby
+.coverage
 
 # Ignore assets
 /node_modules

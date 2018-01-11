@@ -45,7 +45,7 @@
     "coverageReporters": [
       "html", "text"
     ],
-    "coverageDirectory": "coverage_js",
+    "coverageDirectory": ".coverage/js",
     "moduleDirectories": [
       "node_modules",
       "app/javascript"

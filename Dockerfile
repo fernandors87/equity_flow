@@ -4,9 +4,10 @@ LABEL maintainer="fernandors87@gmail.com"
 WORKDIR /app
 COPY . /app
 
-RUN apk update && apk add gcc g++ make sqlite-dev tzdata nodejs yarn git python
-RUN gem install bundler && bundle install
+RUN apk add --update gcc g++ make git openssh python sqlite-dev tzdata nodejs yarn
+RUN gem install bundler && bundle install --jobs 4 --retry 3
 RUN yarn install
-RUN rake db:create && rake db:migrate
+RUN bundle exec rake db:create
+RUN bundle exec rake db:migrate
 
 EXPOSE 3000 3035
