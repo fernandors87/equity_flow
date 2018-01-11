@@ -63,16 +63,9 @@ It's a personal financial software.
 
 ### Tests
 
-1. Tests
-
     ```shell
-    $ rake build:test
-    ```
-
-2. Coverage
-
-    ```shell
-    $ rake build:coverage
+    $ rspec
+    $ yarn test
     ```
 
 ## Docker Compose setup
