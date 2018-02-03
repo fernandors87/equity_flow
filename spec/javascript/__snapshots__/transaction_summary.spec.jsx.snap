@@ -179,9 +179,6 @@ exports[`TransactionSummary should render nicely with default props 1`] = `
           Account
         </th>
         <th>
-          2017-02
-        </th>
-        <th>
           2017-03
         </th>
         <th>
@@ -213,6 +210,9 @@ exports[`TransactionSummary should render nicely with default props 1`] = `
         </th>
         <th>
           2018-01
+        </th>
+        <th>
+          2018-02
         </th>
         <th>
           Mean

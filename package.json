@@ -2,7 +2,8 @@
   "name": "equity_flow",
   "private": true,
   "scripts": {
-    "lint": "./node_modules/.bin/eslint app/javascript app/assets/javascripts spec/javascript",
+    "eslint": "./node_modules/.bin/eslint",
+    "eslint:all": "./node_modules/.bin/eslint app/**/*.jsx spec/**/*.js",
     "test": "./node_modules/.bin/jest"
   },
   "dependencies": {
@@ -12,22 +13,21 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "bootstrap-sass": "^3.3.7",
-    "coffeescript": "1.12.7",
     "immutable": "^3.8.2",
-    "jquery": "^3.2.1",
-    "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0"
   },
   "devDependencies": {
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.13.1",
-    "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-react": "^7.5.1",
     "jest": "^22.0.4",
-    "jest-css-modules": "^1.1.0",
     "react-test-renderer": "^16.2.0",
+    "sinon": "^4.2.2",
     "webpack-dev-server": "^2.9.7"
   },
   "jest": {
@@ -43,15 +43,23 @@
       "app/javascript/**/*.{js,jsx}"
     ],
     "coverageReporters": [
-      "html", "text"
+      "html",
+      "text"
     ],
     "coverageDirectory": ".coverage/js",
     "moduleDirectories": [
       "node_modules",
       "app/javascript"
     ],
+    "moduleNameMapper": {
+      "^.+\\.(scss|css)$": "<rootDir>/spec/javascript/__mocks__/styles.js"
+    },
     "roots": [
       "spec/javascript"
-    ]
+    ],
+    "setupFiles": [
+      "<rootDir>/spec/javascript/setup.js"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/spec/javascript/jest.js"
   }
 }

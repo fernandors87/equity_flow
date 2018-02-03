@@ -1,6 +1,6 @@
 # EQUITY FLOW
 
-It's a personal financial software.
+It's a [GnuCash](https://gnucash.org) report front-end.
 
 ## Developer Guide
 
@@ -45,29 +45,43 @@ It's a personal financial software.
 5. Create the database
 
     ```shell
-    $ rake db:create
-    $ rake db:migrate
+    $ rake db:reset
     ```
 
 ### Starting the application
 
-1. Start the assets development server
+1. Load an example [GnuCash](https://gnucash.org) transaction sheet:
+
+    ```shell
+    $ rake gnucash[/path/to/project/spec/lib/sample.gnucash]
+    ```
+
+2. Serve application assets(css, js, etc.) on development environment by starting the [webpack-dev-server](https://webpack.js.org):
 
     ```shell
     $ webpack-dev-server
     ```
 
-2. Open another shell tab and start the Rails server
+3. Start the Rails server on another shell tab:
 
     ```shell
     $ rails server
     ```
 
-### Tests
+### Testing
+
+- Running back-end & front-end tests respectively:
 
     ```shell
-    $ rspec
+    $ bundle exec rspec
     $ yarn test
+    ```
+
+- Generate coverage reports:
+
+    ```shell
+    $ COVERAGE=1 bundle exec rspec # ./coverage/ruby
+    $ yarn test --coverage # ./coverage/js
     ```
 
 ## Docker Compose setup

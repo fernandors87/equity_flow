@@ -2,9 +2,19 @@ env:
   browser: true
   es6: true
   jest: true
-extends: 'eslint:recommended'
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
 globals:
   ActionCable: true
+  module: true
+
+  # spec/javascript/setup.js
+  global: true
+  mount: true
+  React: true
+  shallow: true
+  sinon: true
 parserOptions:
   ecmaFeatures:
     jsx: true

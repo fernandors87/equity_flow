@@ -1,13 +1,10 @@
 import { AccountRecord, SplitRecord } from 'src/model'
 import { accountsTree, months } from 'packs/transaction_summary'
 import { List, OrderedSet, Set } from 'immutable'
-import * as CustomMatchers from './custom_matchers'
 import moment from 'moment'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import TransactionSummary from 'packs/transaction_summary'
-
-expect.extend(CustomMatchers)
 
 describe('TransactionSummary', () => {
 

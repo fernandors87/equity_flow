@@ -1,9 +1,7 @@
-import React from 'react'
+import {List, Map, OrderedSet, Set} from 'immutable'
 import PropTypes from 'prop-types'
-
+import React from 'react'
 import moment from 'moment'
-import { List, Set, Map, Record, OrderedMap, OrderedSet } from 'immutable'
-import * as Immutable from 'immutable'
 
 export default class TransactionSummary extends React.Component {
 
@@ -51,8 +49,8 @@ function defaultState(props) {
 
   return {
     accounts: accountsTree(props.accounts),
-    startDate: startDate,
-    endDate: endDate,
+    startDate,
+    endDate,
     months: months(startDate, endDate)
   }
 }
@@ -153,6 +151,6 @@ function TableCells(account, months, splits) {
     const month = startOfMonth.format('YYYY-MM')
     const sOfMonth = splits.filter(s => s.date.format('YYYY-MM') == month)
     const value = sOfMonth.toList().reduce((a, b) => a + b.value, 0)
-    return TableCell({ row: account.id, column: month, value: value })
+    return TableCell({ row: account.id, column: month, value })
   })
 }

@@ -1,9 +1,6 @@
-import * as CustomMatchers from './custom_matchers'
 import { AccountRecord, SplitRecord } from 'src/model'
 import { OrderedSet, Set } from 'immutable'
 import moment from 'moment'
-
-expect.extend(CustomMatchers)
 
 function mockResponse(mockFn) {
   jest.doMock('axios', () => jest.fn(mockFn))
