@@ -40,6 +40,7 @@ export default class Calendar extends React.Component {
 
   render() {
     const {date, month} = this.state
+    const {className} = this.props
 
     const shortMonth = month.format('YYYY-MM')
 
@@ -48,11 +49,11 @@ export default class Calendar extends React.Component {
       .map((w, i) => <td key={i}>{w}</td>)
 
     const startOfCalendar = moment(month).startOf('week')
-    const calendarDates = Range(0, 35).map(i => moment(startOfCalendar).add(i, 'days'))
+    const calendarDates = Range(0, 42).map(i => moment(startOfCalendar).add(i, 'days'))
     const calendarDatesByWeek = calendarDates.groupBy(d => d.week())
     const calendarCellsByWeek = calendarDatesByWeek.map(dates => dates.map((calendarDate) => {
         const key = calendarDate.toString()
-        const CellCss = 'calendar-day'
+        const CellCss = 'day'
         const onClick = () => this._onDateClick(calendarDate)
         const buttonCss = calendarDate.isSame(date, 'day') ? 'selected' : 'unselected'
         const buttonStyle = buttonCss === 'selected' ? 'primary' : 'default'
@@ -63,7 +64,7 @@ export default class Calendar extends React.Component {
     const calendarRows = calendarCellsByWeek.map((cells, i) => <tr key={i}>{cells}</tr>)
 
     return (
-      <table className="calendar">
+      <table className={`calendar ${className}`}>
         <thead>
           <tr>
             <td>
@@ -92,5 +93,6 @@ export default class Calendar extends React.Component {
 
 Calendar.propTypes = {
   date: PropTypes.instanceOf(moment).isRequired,
-  onDateClick: PropTypes.func
+  onDateClick: PropTypes.func,
+  className: PropTypes.string
 }

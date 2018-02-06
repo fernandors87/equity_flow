@@ -1,12 +1,28 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+
+$line-height: $font-size-base * 2;
+
 .calendar {
   text-align: center;
 
-  button {
-    padding: 0;
-    width: 100%;
+  tr {
+    line-height: $line-height
   }
 
-  .calendar-day {
-    width: 2em;
+  .btn {
+    padding: 0;
+    width: 100%;
+    border-width: 0;
+    border-radius: 0;
+    vertical-align: unset;
+    outline: none;
+    line-height: $line-height;
+    width: $line-height;
+  }
+
+  .day {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #ddd;
   }
 }

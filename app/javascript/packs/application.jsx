@@ -1,6 +1,6 @@
 import '../src/application.scss'
 import * as API from './../src/api'
-import Calendar from '../components/calendar'
+import DatePicker from '../components/datepicker'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Set} from 'immutable'
@@ -18,8 +18,7 @@ class Application extends React.Component {
       endDate: moment.utc()
     }
 
-    this._onStartDateChange = this._onStartDateChange.bind(this)
-    this._onEndDateChange = this._onEndDateChange.bind(this)
+    this._onDateChange = this._onDateChange.bind(this)
   }
 
   componentDidMount() {
@@ -30,26 +29,15 @@ class Application extends React.Component {
     })
   }
 
-  _onStartDateChange(date) {
-    this.setState(prevState => {
-      const {endDate} = prevState
-      return endDate.isSameOrAfter(date) ? {startDate: date} : {}
-    })
-  }
-
-  _onEndDateChange(date) {
-    this.setState(prevState => {
-      const {startDate} = prevState
-      return startDate.isSameOrBefore(date) ? {endDate: date} : {}
-    })
+  _onDateChange(startDate, endDate) {
+    this.setState({startDate, endDate})
   }
 
   render () {
     const {startDate, endDate} = this.state
     return (
       <div>
-        <Calendar date={startDate} onDateClick={this._onStartDateChange}/>
-        <Calendar date={endDate} onDateClick={this._onEndDateChange}/>
+        <DatePicker startDate={startDate} endDate={endDate} onDateChange={this._onDateChange} />
         <TransactionSummary
           accounts={this.state.accounts}
           splits={this.state.splits}

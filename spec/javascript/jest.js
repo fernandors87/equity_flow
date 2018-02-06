@@ -12,7 +12,7 @@ function toEqualMoment(actual, expected) {
   const pass = actual.isSame(moment(expected))
   const message = () => {
     const act = actual.toString()
-    const exp = actual.toString()
+    const exp = expected.toString()
     const not = pass ? ' not ' : ' '
     return `expected ${act}${not}to be equal to ${exp}`
   }

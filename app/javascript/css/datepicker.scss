@@ -1,0 +1,13 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss';
+
+.datepicker-popover {
+  max-width: 100%;
+
+  .calendar {
+    display: inline-block;
+
+    &.calendar-start {
+      padding-right: 15px;
+    }
+  }
+}

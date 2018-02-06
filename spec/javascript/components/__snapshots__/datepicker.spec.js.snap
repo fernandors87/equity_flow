@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DatePicker render the component 1`] = `"<div class=\\"datepicker form-group has-feedback\\"><div><input type=\\"text\\" readonly=\\"\\" container=\\"[object Object]\\" value=\\"July 12, 2017 - March 2, 2018\\" class=\\"datepicker-input form-control\\"/><span class=\\"form-control-feedback glyphicon glyphicon-calendar\\"></span></div></div>"`;
