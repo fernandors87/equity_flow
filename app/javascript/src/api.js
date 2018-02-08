@@ -12,10 +12,11 @@ export const accounts = {
   }
 }
 
-// FIXME: This call should be replaced by a lightweight alternative
 export const splits = {
-  list() {
-    return axios('/api/v1/splits').then(response =>
+  list(startDate, endDate) {
+    const sd = startDate.format('YYYY-MM-DD')
+    const ed = endDate.format('YYYY-MM-DD')
+    return axios(`/api/v1/splits?start_date=${sd}&end_date=${ed}`).then(response =>
       Set(response.data).map(s => {
         const parsedValue = parseFloat(s.value)
         const value = s.position == 'credit' ? -parsedValue : parsedValue

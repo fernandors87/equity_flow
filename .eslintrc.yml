@@ -8,6 +8,7 @@ extends:
 globals:
   ActionCable: true
   module: true
+  process: true
 
   # spec/javascript/setup.js
   global: true

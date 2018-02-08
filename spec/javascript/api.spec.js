@@ -81,7 +81,7 @@ describe('api', () => {
 
         const expectedCollection = Set.of(expectedRecord)
 
-        return api().splits.list().then(x => {
+        return api().splits.list(moment(),moment()).then(x => {
           expect(x).toEqualImmutable(expectedCollection)
         })
       })
