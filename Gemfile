@@ -57,3 +57,7 @@ group :development do
   gem "spring", "~> 2.0.2"
   gem "spring-watcher-listen", "~> 2.0.0"
 end
+
+# https://github.com/flavorjones/loofah/issues/144
+gem "loofah", "~> 2.2.2"
+gem "rails-html-sanitizer", "~> 1.0.4"
