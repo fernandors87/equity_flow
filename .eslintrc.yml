@@ -28,11 +28,17 @@ rules:
     - as-needed
   no-duplicate-imports:
     - error
+  object-curly-spacing:
+    - warn
+    - always
   object-shorthand:
     - warn
   quotes:
     - error
     - single
+  react/jsx-curly-spacing:
+    - warn
+    - always
   react/prop-types:
     - error
     - skipUndeclared: true

@@ -1,24 +1,24 @@
 import '../css/datepicker.scss'
-import {FormControl, FormGroup, Glyphicon, OverlayTrigger, Popover} from 'react-bootstrap'
+import { FormControl, FormGroup, Glyphicon, OverlayTrigger, Popover } from 'react-bootstrap'
 import Calendar from './calendar'
 import PropTypes from 'prop-types'
 import React from 'react'
 import moment from 'moment'
 
-function DatePickerPopover({startDate, endDate, onDateChange}) {
-  const onDateChangeFn = (variable) => (date) => onDateChange({[variable]: date})
+function DatePickerPopover({ startDate, endDate, onDateChange }) {
+  const onDateChangeFn = (variable) => (date) => onDateChange({ [variable]: date })
   return (
     <Popover className="datepicker-popover" id="datepicker-popover">
-      <Calendar className="calendar-start" date={startDate} onDateClick={onDateChangeFn('startDate')}/>
-      <Calendar className="calendar-end" date={endDate} onDateClick={onDateChangeFn('endDate')}/>
+      <Calendar className="calendar-start" date={ startDate } onDateClick={ onDateChangeFn('startDate') }/>
+      <Calendar className="calendar-end" date={ endDate } onDateClick={ onDateChangeFn('endDate') }/>
     </Popover>
   )
 }
 
-function DatePickerInput({container, startDate, endDate}) {
+function DatePickerInput({ container, startDate, endDate }) {
   const dateFormat = 'LL'
   const value = `${startDate.format(dateFormat)} - ${endDate.format(dateFormat)}`
-  return <FormControl className="datepicker-input" type="text" readOnly container={container} value={value} />
+  return <FormControl className="datepicker-input" type="text" readOnly container={ container } value={ value } />
 }
 
 export default class DatePicker extends React.Component {
@@ -40,7 +40,7 @@ export default class DatePicker extends React.Component {
     })
   }
 
-  _onDateChange({startDate, endDate}) {
+  _onDateChange({ startDate, endDate }) {
     this.setState(prevState => {
       const prevStart = prevState.startDate
       const prevEnd = prevState.endDate
@@ -54,14 +54,14 @@ export default class DatePicker extends React.Component {
   }
 
   _onPopoverExit() {
-    const {startDate, endDate} = this.state
+    const { startDate, endDate } = this.state
     const callback = this.props.onDateChange || (() => {})
     callback(startDate, endDate)
   }
 
   render() {
-    const {startDate, endDate} = this.state
-    const popover = DatePickerPopover({startDate, endDate, onDateChange: this._onDateChange})
+    const { startDate, endDate } = this.state
+    const popover = DatePickerPopover({ startDate, endDate, onDateChange: this._onDateChange })
 
     return (
       <FormGroup className="datepicker">
@@ -70,10 +70,10 @@ export default class DatePicker extends React.Component {
           className="datepicker-overlay"
           trigger="click"
           placement="bottom"
-          overlay={popover}
-          onExiting={this._onPopoverExit}>
+          overlay={ popover }
+          onExiting={ this._onPopoverExit }>
           <div>
-            <DatePickerInput container={this} startDate={startDate} endDate={endDate}/>
+            <DatePickerInput container={ this } startDate={ startDate } endDate={ endDate }/>
             <FormControl.Feedback>
               <Glyphicon glyph="calendar" />
             </FormControl.Feedback>

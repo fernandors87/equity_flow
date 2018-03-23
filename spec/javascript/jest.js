@@ -5,7 +5,7 @@ function toEqualImmutable(actual, expected) {
   const pass = Immutable.is(actual, expected)
   const notWord = pass ? ' not ' : ' '
   const message = () => `expected ${actual}${notWord}to be equal to ${expected}`
-  return {pass, message}
+  return { pass, message }
 }
 
 function toEqualMoment(actual, expected) {
@@ -16,7 +16,7 @@ function toEqualMoment(actual, expected) {
     const not = pass ? ' not ' : ' '
     return `expected ${act}${not}to be equal to ${exp}`
   }
-  return {pass, message}
+  return { pass, message }
 }
 
-expect.extend({toEqualImmutable, toEqualMoment})
+expect.extend({ toEqualImmutable, toEqualMoment })

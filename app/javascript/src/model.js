@@ -1,4 +1,4 @@
-import { OrderedSet, Record } from 'immutable'
+import { List, Record } from 'immutable'
 
 export const AccountRecord = Record({
   id: null,
@@ -8,7 +8,7 @@ export const AccountRecord = Record({
   parent_id: null,
   level: null,
   full_name: null,
-  children: OrderedSet()
+  children: List()
 }, 'AccountRecord')
 
 export const SplitRecord = Record({

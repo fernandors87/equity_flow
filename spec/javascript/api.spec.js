@@ -1,5 +1,5 @@
 import { AccountRecord, SplitRecord } from 'src/model'
-import { OrderedSet, Set } from 'immutable'
+import { List } from 'immutable'
 import moment from 'moment'
 
 function mockResponse(mockFn) {
@@ -28,7 +28,7 @@ describe('api', () => {
         full_name: 'Assets:Bank'
       }]
 
-      it('should transform the response to an OrderedSet<AccountRecord>', () => {
+      it('should transform the response to a List<AccountRecord>', () => {
         mockResponse(() => Promise.resolve({
           data
         }))
@@ -41,10 +41,10 @@ describe('api', () => {
           parent_id: 2,
           level: 2,
           full_name: 'Assets:Bank',
-          children: OrderedSet()
+          children: List()
         })
 
-        const expectedCollection = OrderedSet.of(expectedRecord)
+        const expectedCollection = List.of(expectedRecord)
 
         return api().accounts.list().then(x => {
           expect(x).toEqualImmutable(expectedCollection)
@@ -66,7 +66,7 @@ describe('api', () => {
         date: '2018-01-01'
       }]
 
-      it('should transform the response to a Set<SplitRecord>', () => {
+      it('should transform the response to a List<SplitRecord>', () => {
         mockResponse(() => Promise.resolve({
           data
         }))
@@ -79,7 +79,7 @@ describe('api', () => {
           date: moment.utc([2018, 0, 1])
         })
 
-        const expectedCollection = Set.of(expectedRecord)
+        const expectedCollection = List.of(expectedRecord)
 
         return api().splits.list(moment(),moment()).then(x => {
           expect(x).toEqualImmutable(expectedCollection)

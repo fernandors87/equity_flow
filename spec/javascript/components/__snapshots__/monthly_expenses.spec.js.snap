@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonthlyExpenses Body render the fragment 1`] = `
+<tbody>
+  <Row
+    key="1"
+    label="a1"
+    months={
+      Immutable.List [
+        "2017-01-01T00:00:00.000Z",
+        "2017-03-01T00:00:00.000Z",
+      ]
+    }
+    splits={Immutable.List []}
+  />
+  <Row
+    key="2"
+    label="a2"
+    months={
+      Immutable.List [
+        "2017-01-01T00:00:00.000Z",
+        "2017-03-01T00:00:00.000Z",
+      ]
+    }
+    splits={Immutable.List []}
+  />
+  <Row
+    key="3"
+    label="a3"
+    months={
+      Immutable.List [
+        "2017-01-01T00:00:00.000Z",
+        "2017-03-01T00:00:00.000Z",
+      ]
+    }
+    splits={Immutable.List []}
+  />
+</tbody>
+`;
+
+exports[`MonthlyExpenses Footer render the fragment 1`] = `
+<tfoot>
+  <Row
+    label="Total"
+    months={
+      Immutable.List [
+        "2017-01-01T00:00:00.000Z",
+        "2017-03-01T00:00:00.000Z",
+      ]
+    }
+    splits={
+      Immutable.List [
+        Immutable.SplitRecord {
+          "id": 1,
+          "account_id": null,
+          "deal_id": null,
+          "value": 11.6,
+          "date": "2017-01-01T00:00:00.000Z",
+        },
+        Immutable.SplitRecord {
+          "id": 2,
+          "account_id": null,
+          "deal_id": null,
+          "value": 12.6,
+          "date": "2017-01-31T00:00:00.000Z",
+        },
+        Immutable.SplitRecord {
+          "id": 3,
+          "account_id": null,
+          "deal_id": null,
+          "value": 13.6,
+          "date": "2017-02-15T00:00:00.000Z",
+        },
+        Immutable.SplitRecord {
+          "id": 4,
+          "account_id": null,
+          "deal_id": null,
+          "value": 14.6,
+          "date": "2017-03-01T00:00:00.000Z",
+        },
+        Immutable.SplitRecord {
+          "id": 5,
+          "account_id": null,
+          "deal_id": null,
+          "value": 15.6,
+          "date": "2017-03-30T00:00:00.000Z",
+        },
+      ]
+    }
+  />
+</tfoot>
+`;
+
+exports[`MonthlyExpenses Header render the fragment 1`] = `
+<thead>
+  <tr>
+    <th>
+      Account
+    </th>
+    <th
+      key="2017-01-01T00:00:00Z"
+    >
+      2017-01
+    </th>
+    <th
+      key="2017-03-01T00:00:00Z"
+    >
+      2017-03
+    </th>
+    <th>
+      Sum
+    </th>
+    <th>
+      Avg
+    </th>
+  </tr>
+</thead>
+`;
+
+exports[`MonthlyExpenses MonthlyExpenses render the component 1`] = `
+<table
+  className="monthly-expenses table table-hover"
+>
+  <Header
+    months={
+      Immutable.List [
+        "2018-03-01T00:00:00.000Z",
+        "2018-04-01T00:00:00.000Z",
+      ]
+    }
+  />
+  <Body
+    accounts={
+      Immutable.List [
+        Immutable.AccountRecord {
+          "id": 2,
+          "name": "a2",
+          "description": null,
+          "type": "expense",
+          "parent_id": null,
+          "level": null,
+          "full_name": null,
+          "children": Immutable.List [],
+        },
+        Immutable.AccountRecord {
+          "id": 1,
+          "name": "a1",
+          "description": null,
+          "type": "expense",
+          "parent_id": null,
+          "level": null,
+          "full_name": null,
+          "children": Immutable.List [],
+        },
+      ]
+    }
+    months={
+      Immutable.List [
+        "2018-03-01T00:00:00.000Z",
+        "2018-04-01T00:00:00.000Z",
+      ]
+    }
+    splits={Immutable.List []}
+  />
+  <Footer
+    months={
+      Immutable.List [
+        "2018-03-01T00:00:00.000Z",
+        "2018-04-01T00:00:00.000Z",
+      ]
+    }
+    splits={Immutable.List []}
+  />
+</table>
+`;
+
+exports[`MonthlyExpenses Row render the fragment 1`] = `
+<tr>
+  <td
+    className="category"
+  >
+    Blah
+  </td>
+  <td
+    className="value"
+    key="2017-01-01T00:00:00Z"
+  >
+    24
+  </td>
+  <td
+    className="value"
+    key="2017-03-01T00:00:00Z"
+  >
+    30
+  </td>
+  <td
+    className="summary total"
+  >
+    68
+  </td>
+  <td
+    className="summary avg"
+  >
+    34
+  </td>
+</tr>
+`;
