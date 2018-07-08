@@ -18,7 +18,7 @@ export default class Calendar extends React.Component {
     this._onMonthChange = this._onMonthChange.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { date } = nextProps
     const month = moment(date).startOf('month')
     this.setState({ date, month })

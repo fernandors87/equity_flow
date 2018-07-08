@@ -33,7 +33,7 @@ export default class DatePicker extends React.Component {
     this._onPopoverExit = this._onPopoverExit.bind(this)
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
       startDate: nextProps.startDate,
       endDate: nextProps.endDate
