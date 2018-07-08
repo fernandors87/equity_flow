@@ -1,6 +1,6 @@
-import { List } from 'immutable'
 import { Application } from 'components/application'
 import Chrono from 'models/chrono'
+import { List } from 'immutable'
 
 const chrono = new Chrono('2017-09-11T00:00:00.000+00:00', '2018-01-07T00:00:00.000+00:00')
 const emptyAction = () => {}
@@ -36,7 +36,7 @@ it('should request remote accounts', () => {
 
 describe('_onDateChange', () => {
 
-  const chronoAction = sinon.stub().returns({ payload: { chrono: chrono }})
+  const chronoAction = sinon.stub().returns({ payload: { chrono } })
 
   it('should request remote splits', () => {
     const splitsAction = sinon.stub()

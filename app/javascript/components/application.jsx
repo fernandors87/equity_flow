@@ -1,5 +1,5 @@
-import '../src/application.scss'
-import DatePicker from '../components/datepicker'
+import 'css/application.scss'
+import DatePicker from 'components/datepicker'
 import MonthlyExpenses from 'components/monthly_expenses'
 import React from 'react'
 import { bindActionCreators } from 'redux'

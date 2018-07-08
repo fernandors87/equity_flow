@@ -50,35 +50,35 @@ exports[`MonthlyExpenses Footer render the fragment 1`] = `
     }
     splits={
       Immutable.List [
-        Immutable.SplitRecord {
+        Immutable.Split {
           "id": 1,
           "account_id": null,
           "deal_id": null,
           "value": 11.6,
           "date": "2017-01-01T00:00:00.000Z",
         },
-        Immutable.SplitRecord {
+        Immutable.Split {
           "id": 2,
           "account_id": null,
           "deal_id": null,
           "value": 12.6,
           "date": "2017-01-31T00:00:00.000Z",
         },
-        Immutable.SplitRecord {
+        Immutable.Split {
           "id": 3,
           "account_id": null,
           "deal_id": null,
           "value": 13.6,
           "date": "2017-02-15T00:00:00.000Z",
         },
-        Immutable.SplitRecord {
+        Immutable.Split {
           "id": 4,
           "account_id": null,
           "deal_id": null,
           "value": 14.6,
           "date": "2017-03-01T00:00:00.000Z",
         },
-        Immutable.SplitRecord {
+        Immutable.Split {
           "id": 5,
           "account_id": null,
           "deal_id": null,
@@ -132,7 +132,7 @@ exports[`MonthlyExpenses MonthlyExpenses render the component 1`] = `
   <Body
     accounts={
       Immutable.List [
-        Immutable.AccountRecord {
+        Immutable.Account {
           "id": 2,
           "name": "a2",
           "description": null,
@@ -142,7 +142,7 @@ exports[`MonthlyExpenses MonthlyExpenses render the component 1`] = `
           "full_name": null,
           "children": Immutable.List [],
         },
-        Immutable.AccountRecord {
+        Immutable.Account {
           "id": 1,
           "name": "a1",
           "description": null,

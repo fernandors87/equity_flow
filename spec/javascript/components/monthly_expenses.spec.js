@@ -1,24 +1,25 @@
-import { AccountRecord, SplitRecord } from 'src/model'
 import MonthlyExpenses, { Body, Footer, Header, Row } from 'components/monthly_expenses'
+import Account from 'models/account'
 import { List } from 'immutable'
+import Split from 'models/split'
 import moment from 'moment'
 
 describe('MonthlyExpenses', () => {
 
   const accounts = List.of(
-    AccountRecord({ id: 2, name: 'a2', type: 'expense' }),
-    AccountRecord({ id: 1, name: 'a1', type: 'expense' }),
-    AccountRecord({ id: 3, name: 'a3', type: 'income' })
+    Account({ id: 2, name: 'a2', type: 'expense' }),
+    Account({ id: 1, name: 'a1', type: 'expense' }),
+    Account({ id: 3, name: 'a3', type: 'income' })
   )
 
   const months = List.of(moment.utc('2017-01-01'), moment.utc('2017-03-01'))
 
   const splits = List.of(
-    SplitRecord({ id: 1, date: moment.utc('2017-01-01'), value: 11.6 }),
-    SplitRecord({ id: 2, date: moment.utc('2017-01-31'), value: 12.6 }),
-    SplitRecord({ id: 3, date: moment.utc('2017-02-15'), value: 13.6 }),
-    SplitRecord({ id: 4, date: moment.utc('2017-03-01'), value: 14.6 }),
-    SplitRecord({ id: 5, date: moment.utc('2017-03-30'), value: 15.6 })
+    Split({ id: 1, date: moment.utc('2017-01-01'), value: 11.6 }),
+    Split({ id: 2, date: moment.utc('2017-01-31'), value: 12.6 }),
+    Split({ id: 3, date: moment.utc('2017-02-15'), value: 13.6 }),
+    Split({ id: 4, date: moment.utc('2017-03-01'), value: 14.6 }),
+    Split({ id: 5, date: moment.utc('2017-03-30'), value: 15.6 })
   )
 
   describe('Header', () => {

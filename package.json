@@ -4,7 +4,7 @@
   "scripts": {
     "coverage": "yarn test --coverage",
     "eslint": "./node_modules/.bin/eslint",
-    "eslint:all": "./node_modules/.bin/eslint app/**/*.jsx spec/**/*.js",
+    "eslint:all": "./node_modules/.bin/eslint app spec",
     "test": "./node_modules/.bin/jest"
   },
   "dependencies": {

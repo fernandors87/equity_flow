@@ -1,6 +1,6 @@
 import { SPLITS_RECEIVED, fetchSplits } from 'actions/splits-actions'
-import { SplitRecord } from 'src/model'
 import { List } from 'immutable'
+import Split from 'models/split'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
 import moxios from 'moxios'
@@ -30,22 +30,22 @@ describe('fetchSplits', () => {
           id: 16850,
           account_id: 364,
           deal_id: 8423,
-          position: "debit",
-          value: "1124.11",
-          date: "2017-09-22"
+          position: 'debit',
+          value: '1124.11',
+          date: '2017-09-22'
         }
       ]
     }
 
     function assertions() {
       const splits = List.of(
-        new SplitRecord({
+        new Split({
           id: 16850,
           account_id: 364,
           deal_id: 8423,
-          position: "debit",
+          position: 'debit',
           value: 1124.11,
-          date: moment.utc("2017-09-22"),
+          date: moment.utc('2017-09-22'),
         })
       )
       const actions = store.getActions()

@@ -7,12 +7,12 @@ describe('DatePicker', () => {
   const endDate = moment.utc('2018-03-02T00:00:00.000+00:00')
 
   it('render the component', () => {
-    const component = shallow(<DatePicker startDate={startDate} endDate={endDate} />)
+    const component = shallow(<DatePicker startDate={ startDate } endDate={ endDate } />)
     expect(component.html()).toMatchSnapshot()
   })
 
   it('change start date on calendar click', () => {
-    const component = mount(<DatePicker startDate={startDate} endDate={endDate} />)
+    const component = mount(<DatePicker startDate={ startDate } endDate={ endDate } />)
     const input = component.find('.datepicker-input').first()
     input.simulate('click')
 
@@ -26,7 +26,7 @@ describe('DatePicker', () => {
   })
 
   it('change end date on calendar click', () => {
-    const component = mount(<DatePicker startDate={startDate} endDate={endDate} />)
+    const component = mount(<DatePicker startDate={ startDate } endDate={ endDate } />)
     const input = component.find('.datepicker-input').first()
     input.simulate('click')
 
@@ -42,7 +42,7 @@ describe('DatePicker', () => {
   it('do not allow overlap', () => {
     const start = moment('2017-01-15')
     const end = moment('2017-01-15')
-    const component = mount(<DatePicker startDate={start} endDate={end} />)
+    const component = mount(<DatePicker startDate={ start } endDate={ end } />)
     const input = component.find('.datepicker-input').first()
     input.simulate('click')
 
@@ -57,7 +57,7 @@ describe('DatePicker', () => {
 
   it('notify date changes on popover exit', () => {
     const onDateChange = sinon.spy()
-    const component = mount(<DatePicker startDate={startDate} endDate={endDate} onDateChange={onDateChange} />)
+    const component = mount(<DatePicker startDate={ startDate } endDate={ endDate } onDateChange={ onDateChange } />)
     const input = component.find('.datepicker-input').first()
     input.simulate('click')
     input.simulate('click')
@@ -68,8 +68,8 @@ describe('DatePicker', () => {
   })
 
   it('update the state from props', () => {
-    const component = mount(<DatePicker startDate={startDate} endDate={endDate} />)
-    component.setProps({startDate: moment(endDate), endDate: endDate})
+    const component = mount(<DatePicker startDate={ startDate } endDate={ endDate } />)
+    component.setProps({ startDate: moment(endDate), endDate })
     expect(component.state().startDate).toEqualMoment(endDate)
   })
 })

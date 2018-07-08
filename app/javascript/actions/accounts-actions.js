@@ -1,4 +1,4 @@
-import { AccountRecord } from 'src/model'
+import Account from 'models/account'
 import { List } from 'immutable'
 import axios from 'axios'
 import moment from 'moment'
@@ -19,7 +19,7 @@ export function fetchAccounts() {
   return function(dispatch) {
     return axios('/api/v1/accounts')
       .then(response => List(response.data))
-      .then(data => data.map(x => new AccountRecord(x)))
+      .then(data => data.map(x => Account(x)))
       .then(accounts => dispatch(receiveAccounts(accounts)))
   }
 }

@@ -1,5 +1,5 @@
 import { ACCOUNTS_RECEIVED, fetchAccounts } from 'actions/accounts-actions'
-import { AccountRecord } from 'src/model'
+import Account from 'models/account'
 import { List } from 'immutable'
 import configureMockStore from 'redux-mock-store'
 import moment from 'moment'
@@ -40,7 +40,7 @@ describe('fetchAccounts', () => {
 
     function assertions() {
       const accounts = List.of(
-        new AccountRecord({
+        Account({
           id: 1,
           name: 'name',
           description: 'desc',

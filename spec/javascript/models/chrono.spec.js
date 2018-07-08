@@ -14,6 +14,6 @@ describe('constructor', () => {
       new Chrono(
         moment().add(2, 'day'),
         moment().add(1, 'day'))
-    expect(period).toThrowError("should not be greater than end date")
+    expect(period).toThrowError('should not be greater than end date')
   })
 })

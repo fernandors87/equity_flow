@@ -1,5 +1,5 @@
 import { List } from 'immutable'
-import { SplitRecord } from 'src/model'
+import Split from 'models/split'
 import axios from 'axios'
 import moment from 'moment'
 
@@ -20,7 +20,7 @@ export function fetchSplits(start, end) {
     const parsedValue = parseFloat(s.value)
     const value = s.position == 'credit' ? -parsedValue : parsedValue
     const date = moment.utc(s.date)
-    return new SplitRecord(s).merge({ value, date })
+    return new Split(s).merge({ value, date })
   }
 
   return function(dispatch) {

@@ -1,5 +1,5 @@
 import { ACCOUNTS_RECEIVED } from 'actions/accounts-actions'
-import { AccountRecord } from 'src/model'
+import Account from 'models/account'
 import { List } from 'immutable'
 import accountsReducer from 'reducers/accounts-reducer'
 
@@ -13,7 +13,7 @@ it('should handle ACCOUNTS_RECEIVED', () => {
   const action = {
     type: ACCOUNTS_RECEIVED,
     payload: {
-      accounts: List(new AccountRecord())
+      accounts: List(Account({}))
     }
   }
 
