@@ -4,7 +4,7 @@
   "scripts": {
     "coverage": "yarn test --coverage",
     "eslint": "./node_modules/.bin/eslint",
-    "eslint:all": "./node_modules/.bin/eslint app spec",
+    "lint": "./node_modules/.bin/eslint app spec --ext js,jsx",
     "test": "./node_modules/.bin/jest"
   },
   "dependencies": {
@@ -59,7 +59,7 @@
       "app/javascript"
     ],
     "moduleNameMapper": {
-      "^.+\\.(scss|css)$": "<rootDir>/spec/javascript/__mocks__/styles.js"
+      "^.*css\/.+$": "<rootDir>/spec/javascript/__mocks__/styles.js"
     },
     "roots": [
       "spec/javascript"

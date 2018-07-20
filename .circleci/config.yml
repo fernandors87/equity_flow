@@ -49,7 +49,7 @@ jobs:
 
       - run: bundle exec rubocop
 
-      - run: yarn eslint:all
+      - run: yarn lint
 
       - run: bundle exec rake assets:precompile
 

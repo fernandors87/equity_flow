@@ -8,9 +8,6 @@ extends:
 globals:
   ActionCable: true
   module: true
-  process: true
-
-  # spec/javascript/setup.js
   global: true
   mount: true
   React: true
@@ -49,3 +46,6 @@ rules:
     - warn
   sort-vars:
     - warn
+  space-before-function-paren:
+    - warn
+    - never

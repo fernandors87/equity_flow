@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import Application from 'components/application'
+import Application from 'layout/application'
 import Chrono from 'models/chrono'
 import { List } from 'immutable'
 import { Provider } from 'react-redux'
@@ -28,7 +28,7 @@ const storeEnhancers = compose(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 
-const store = createStore( reducers, states, storeEnhancers)
+const store = createStore(reducers, states, storeEnhancers)
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
